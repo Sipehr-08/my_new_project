@@ -1,26 +1,30 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-];
+import app from '@/main.js';
+import { createRouter, createWebHistory } from 'vue-router';
+import store from '@/store';
+import { publicRoutes } from './public';
+import { privateRoutes } from './private';
+const routes = [...publicRoutes, ...privateRoutes];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  document.title = 'Alif - HR' + (to?.meta?.title ? ' - ' + to.meta.title : '');
+  const token = app.config.globalProperties?.$cookies?.get('auth');
+  if (token) {
+    if (!store.state?.core?.app) await store?.dispatch('core/getApp');
+    next();
+  } else {
+    if (to.name !== 'auth') {
+      next({
+        name: 'auth',
+      });
+    } else {
+      next();
+    }
+  }
 });
 
 export default router;

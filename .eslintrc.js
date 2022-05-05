@@ -8,6 +8,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:prettier/recommended",
   ],
+  ignorePatterns: ["./src/plugins/aliftech-ui/**", "git", "README.md"],
   parserOptions: {
     parser: "@babel/eslint-parser",
   },

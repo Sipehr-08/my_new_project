@@ -1,0 +1,33 @@
+@import '~nprogress/nprogress.css';
+body{
+    background-color: #F3F6F9;
+}
+
+#nprogress .bar {
+    height: 2px;
+}
+
+.sidebar-hover:hover{
+    background-color: rgba(230, 236, 242, 0.42);
+}
+.sidebar-hover:active{
+    background-color: #E6ECF2;
+}
+.sidebar-active{
+    background-color: #E6ECF2;
+}
+.search-input-bg {
+    background-color: #DDE5EE;
+}
+.header-title {
+    font-weight: 720;
+    font-size: 22px;
+    line-height: 28px;
+    color: #222222;
+}
+.header-title-lg {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    color: #222222;
+}
