@@ -147,10 +147,10 @@
           </router-link>
           <router-link :to="{ name: 'profile' }">
             <div
-              :class="{ 'sidebar-active text-primary-500': $route.name === 'profile' }"
+              :class="{ 'sidebar-active text-primary-500': $route.name.includes('profile') }"
               class="flex ml-4 cursor-pointer flex-nowrap rounded-full sidebar-hover pr-3"
             >
-              <img class="w-10 h-10 hover:h-9 hover:w-9 rounded-full object-cover" :src="userAvatar" alt="Опцион" />
+              <img class="w-9 h-9 rounded-full border border-primary-500 object-cover" :src="userAvatar" alt="Опцион" />
               <span class="whitespace-nowrap ml-2 my-auto text-lg">{{ user.nickName }}</span>
             </div>
           </router-link>

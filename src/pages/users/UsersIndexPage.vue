@@ -139,7 +139,7 @@
     </div>
     <div v-else>
       <div class="grid grid-cols-12 gap-5">
-        <div class="col-span-3" v-for="user in users?.data" :key="user.id">
+        <div class="col-span-3 translate-y-2" v-for="user in users?.data" :key="user.id">
           <Component :user="user" :is="UserCard" />
         </div>
       </div>

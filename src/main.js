@@ -6,8 +6,23 @@ import VueCookies from 'vue3-cookies';
 import AlifUi from './plugins/aliftech-ui';
 import '@/assets/css/main.css';
 import NProgress from 'nprogress';
+import { readableDate, readableTime, readableDateMonth } from './utils/filters/dateFilters';
+import { priceFormat } from './utils/filters/priceFilter';
+import { numberFormat } from './utils/filters/numberFormat';
+import { phoneNumberFilter } from './utils/filters/numberFilter';
+import { displayQuantity } from '~/utils/parsers';
 
 const app = createApp(App);
+
+app.config.globalProperties.$filters = {
+  readableDate,
+  readableTime,
+  readableDateMonth,
+  phoneNumberFilter,
+  numberFormat,
+  priceFormat,
+  displayQuantity,
+};
 
 app.use(NProgress);
 app.use(AlifUi);

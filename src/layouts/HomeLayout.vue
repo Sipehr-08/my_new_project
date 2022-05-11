@@ -1,5 +1,5 @@
 <script setup>
-  import Sidebar from '../components/core/Sidebar';
+  import Sidebar from '../components/core/SidebarCore';
 </script>
 <template>
   <div class="font-sans">
