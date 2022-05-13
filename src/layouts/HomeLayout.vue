@@ -1,14 +1,17 @@
 <script setup>
-  import Sidebar from '../components/core/SidebarCore';
+  import { defineAsyncComponent } from 'vue';
+  const Sidebar = defineAsyncComponent(() => import('../components/core/SidebarCore'));
 </script>
 <template>
   <div class="font-sans">
     <div>
-      <component :is="Sidebar">
-        <transition name="slide-fade" mode="out-in">
-          <router-view />
-        </transition>
-      </component>
+      <Sidebar>
+        <router-view v-slot="{ Component }">
+          <transition name="slide-fade" mode="out-in">
+            <component :is="Component"></component>
+          </transition>
+        </router-view>
+      </Sidebar>
     </div>
   </div>
 </template>

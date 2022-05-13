@@ -17,7 +17,7 @@
 </script>
 <template>
   <div class="h-full">
-    <at-panel class="h-full hover:bg-gray-200 cursor-pointer" :overflow="false">
+    <at-panel class="h-full hover:bg-gray-100 cursor-pointer" :overflow="false">
       <div class="h-full relative">
         <div class="flex w-full justify-center mb-4">
           <img class="h-32 rounded-full object-fill" :src="avatarPath(props.user.avatar_path)" alt="avatar" />

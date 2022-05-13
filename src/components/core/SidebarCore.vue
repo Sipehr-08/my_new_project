@@ -93,7 +93,7 @@
       </div>
       <div class="h-0 flex-1 flex flex-col overflow-y-auto mt-14">
         <div class="flex-1 h-0 overflow-y-auto">
-          <router-link v-for="(item, index) in items" :key="index" :to="{ path: `/${item.name}` }">
+          <router-link v-for="(item, index) in items" :key="index" :to="{ name: item.name }">
             <div
               :class="{ 'sidebar-active text-black': item.name === $route.name }"
               class="flex items-center cursor-pointer block ml-7 px-3 py-3 rounded-lg sidebar-hover"
