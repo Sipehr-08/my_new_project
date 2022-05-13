@@ -65,7 +65,6 @@
     NProgress.start();
     getAllUsersRequest(query)
       .then(res => {
-        console.log(res.data);
         users.value = res.data;
       })
       .finally(() => {

@@ -58,7 +58,6 @@
     getMyRewardsRequest({ per_page: 25 })
       .then(res => {
         rewards.value = res.data?.data;
-        console.log(rewards.value);
       })
       .finally(() => (rewardsLoading.value = false));
   };

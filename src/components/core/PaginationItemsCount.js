@@ -1,7 +1,6 @@
 import { h } from 'vue';
 
 const PaginationItemsCount = props => {
-  console.log(props.itemsMeta);
   return h('div', { class: 'inline-block' }, [
     h('span', { class: 'text-gray-500' }, props.itemsMeta.from),
     h('span', { class: 'text-gray-500 mx-1' }, '–'),
