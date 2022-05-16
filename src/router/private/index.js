@@ -1,3 +1,4 @@
+import profile from '@/router/private/profile';
 export const privateRoutes = [
   {
     path: '/',
@@ -16,57 +17,7 @@ export const privateRoutes = [
           title: 'Главная',
         },
       },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: () => import('@/pages/profile/ProfilePage'),
-        meta: {
-          title: 'Профиль',
-        },
-        redirect: { name: 'profile.main' },
-        children: [
-          {
-            path: '/profile/main',
-            name: 'profile.main',
-            component: () => import('@/pages/profile/detail/MainPage'),
-          },
-          {
-            path: '/profile/lateness',
-            name: 'profile.lateness',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/vacation',
-            name: 'profile.vacation',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/conversion',
-            name: 'profile.conversion',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/advances',
-            name: 'profile.advances',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/contract',
-            name: 'profile.contract',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/feedbacks',
-            name: 'profile.feedbacks',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-          {
-            path: '/profile/politeness-survey',
-            name: 'profile.politeness-survey',
-            component: () => import('@/components/core/NotFoundErrorPage'),
-          },
-        ],
-      },
+      ...profile,
       {
         path: '/family',
         name: 'family',

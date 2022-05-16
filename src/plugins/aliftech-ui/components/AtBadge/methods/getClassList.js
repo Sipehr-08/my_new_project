@@ -13,6 +13,9 @@ export const getClassList = (rounded, large, color) => {
     case 'red':
       result.push('bg-red-100 text-red-800 dark:bg-red-500 dark:bg-opacity-20 dark:text-red-400');
       break;
+    case 'primary':
+      result.push('bg-primary-100 text-primary-800 dark:bg-primary-500 dark:bg-opacity-20 dark:text-primary-400');
+      break;
     case 'yellow':
       result.push('bg-yellow-100 text-yellow-800 dark:bg-yellow-500 dark:bg-opacity-20 dark:text-yellow-400');
       break;
@@ -20,7 +23,7 @@ export const getClassList = (rounded, large, color) => {
       result.push('bg-green-100 text-green-800 dark:bg-green-500 dark:bg-opacity-20 dark:text-green-400');
       break;
     case 'blue':
-      result.push('bg-blue-100 text-blue-800 dark:bg-blue-500 dark:bg-opacity-20 dark:text-blue-400');
+      result.push('bg-blue-100 text-blue-600 dark:bg-blue-500 dark:bg-opacity-20 dark:text-blue-400');
       break;
     case 'indigo':
       result.push('bg-indigo-100 text-indigo-800 dark:bg-indigo-500 dark:bg-opacity-20 dark:text-indigo-400');

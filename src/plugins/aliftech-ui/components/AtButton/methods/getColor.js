@@ -5,7 +5,7 @@ export const getColor = (color, loading = false, disabled = false) => {
         loading || disabled
           ? 'bg-primary-400 text-opacity-90'
           : 'bg-primary-600 hover:bg-primary-500 ' +
-            'focus:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ' +
+            'focus:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 ' +
             'dark:bg-primary-500 dark:focus:bg-primary-600 dark:hover:bg-primary-600 dark:focus:ring-offset-gray-900'
       }`;
     case 'secondary':

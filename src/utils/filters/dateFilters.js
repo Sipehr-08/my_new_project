@@ -14,7 +14,7 @@ export function readableDateMonth(date) {
 }
 export function readableDateYear(date) {
   if (!date) return '';
-  let parsedDate = format(parseISO(date), 'MMM', { locale: ru });
+  let parsedDate = format(parseISO(date), 'yyyy', { locale: ru });
   return parsedDate;
 }
 

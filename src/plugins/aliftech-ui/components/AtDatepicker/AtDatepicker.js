@@ -17,7 +17,7 @@ export default defineComponent({
     ...Calendar.props,
     format: { type: String, default: 'dd-mmm-yyyy' },
     id: { type: String, default: () => generatorId('at-datepicker-') },
-    modelValue: { type: [String, Date, Array], default: new Date() },
+    modelValue: { type: [String, Date, Array], default: null },
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
     helpText: { type: String, default: '' },
@@ -42,8 +42,8 @@ export default defineComponent({
           value.value = '';
           value.value = formatValue(props.modelValue);
         } else {
-          const value1 = props.modelValue[0] ? formatValue(props.modelValue[0]) : formatValue(new Date());
-          const value2 = props.modelValue[1] ? formatValue(props.modelValue[1]) : formatValue(new Date());
+          const value1 = props.modelValue[0] ? formatValue(props.modelValue[0]) : null;
+          const value2 = props.modelValue[1] ? formatValue(props.modelValue[1]) : null;
 
           if (props.type === 'date') {
             value.value = `${value1} – ${value2}`;
@@ -59,35 +59,37 @@ export default defineComponent({
       let result = '';
       const tokens = props.format.match(/\w+/g);
       const separators = props.format.match(/\W+/g);
-      if (props.type === 'month') {
-        result = capitalize(fullMonths[new Date(newValue).getMonth()]);
-      } else if (props.type === 'year') {
-        result = new Date(newValue).getFullYear().toString();
-      } else if (props.type === 'quarter') {
-        result = `${fullQuarters[getQuarterByDate(new Date(newValue))]} - ${new Date(newValue).getFullYear()}`;
-      } else if (props.type === 'half-year') {
-        result = `${halfYears[getHalfYearByDate(new Date(newValue))]} - ${new Date(newValue).getFullYear()}`;
-      } else {
-        for (let token of tokens) {
-          if (token.toLowerCase().includes('d')) {
-            if (token.length <= 2) {
-              let day = new Date(newValue).getDate();
-              if (day < 10) day = `0${day}`;
-              result += `${day}${separators[tokens.indexOf(token)] || ''}`;
-            }
-          } else if (token.toLowerCase().includes('m')) {
-            if (token.length <= 2) {
-              let month = new Date(newValue).getMonth() + 1;
-              if (month < 10) month = `0${month}`;
-              result += `${month}${separators[tokens.indexOf(token)] || ''}`;
-            } else {
-              let month = capitalize(shortMonths[new Date(newValue).getMonth()]);
-              result += `${month}${separators[tokens.indexOf(token)] || ''}`;
-            }
-          } else if (token.toLowerCase().includes('y')) {
-            if (token.length <= 4) {
-              let year = new Date(newValue).getFullYear();
-              result += `${year}${separators[tokens.indexOf(token)] || ''}`;
+      if(newValue){
+        if (props.type === 'month') {
+          result = capitalize(fullMonths[new Date(newValue).getMonth()]);
+        } else if (props.type === 'year') {
+          result = new Date(newValue).getFullYear().toString();
+        } else if (props.type === 'quarter') {
+          result = `${fullQuarters[getQuarterByDate(new Date(newValue))]} - ${new Date(newValue).getFullYear()}`;
+        } else if (props.type === 'half-year') {
+          result = `${halfYears[getHalfYearByDate(new Date(newValue))]} - ${new Date(newValue).getFullYear()}`;
+        } else {
+          for (let token of tokens) {
+            if (token.toLowerCase().includes('d')) {
+              if (token.length <= 2) {
+                let day = new Date(newValue).getDate();
+                if (day < 10) day = `0${day}`;
+                result += `${day}${separators[tokens.indexOf(token)] || ''}`;
+              }
+            } else if (token.toLowerCase().includes('m')) {
+              if (token.length <= 2) {
+                let month = new Date(newValue).getMonth() + 1;
+                if (month < 10) month = `0${month}`;
+                result += `${month}${separators[tokens.indexOf(token)] || ''}`;
+              } else {
+                let month = capitalize(shortMonths[new Date(newValue).getMonth()]);
+                result += `${month}${separators[tokens.indexOf(token)] || ''}`;
+              }
+            } else if (token.toLowerCase().includes('y')) {
+              if (token.length <= 4) {
+                let year = new Date(newValue).getFullYear();
+                result += `${year}${separators[tokens.indexOf(token)] || ''}`;
+              }
             }
           }
         }
@@ -128,7 +130,7 @@ export default defineComponent({
             helpText: this.helpText,
             hint: this.hint,
             iconAfter: { name: 'calendar', type: 'outline' },
-            placeholder: 'Выберите дату',
+            placeholder: this.placeholder || 'Выберите дату',
             'onUpdate:onFocus': () => (this.showCalendar = true),
             error: this.error,
             success: this.success,

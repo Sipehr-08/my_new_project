@@ -47,7 +47,7 @@ export default defineComponent({
         ]),
         h('div', { class: 'hidden sm:block overflow-x-auto' }, [
           h('div', { class: 'border-b border-gray-200' }, [
-            h('nav', { class: '-mb-px flex justify-between space-x-8', 'aria-label': 'Tabs' }, [
+            h('nav', { class: '-mb-px flex space-x-8', 'aria-label': 'Tabs' }, [
               props.items.map(item => {
                 if ('item' in slots) {
                   return slots.item({

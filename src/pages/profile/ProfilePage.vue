@@ -1,48 +1,50 @@
 <script setup>
   import { defineAsyncComponent, reactive, ref, watch } from 'vue';
   import { useStore } from 'vuex';
-  import { useRouter } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
 
-  const currentTab = ref('main');
   const tabItems = reactive([
     {
       title: 'Мои данные',
-      value: 'main',
+      value: 'profile.main',
     },
     {
       title: 'Опоздания',
-      value: 'lateness',
+      value: 'profile.lateness',
+    },
+    {
+      title: 'Контракты',
+      value: 'profile.contract',
     },
     {
       title: 'Отпуск',
-      value: 'vacation',
+      value: 'profile.vacation',
     },
     {
       title: 'Конвертация в $',
-      value: 'conversion',
+      value: 'profile.conversion',
     },
     {
       title: 'Авансы',
-      value: 'advances',
-    },
-    {
-      title: 'Зарплата',
-      value: 'contract',
+      value: 'profile.advances',
     },
     {
       title: 'Фидбеки',
-      value: 'feedbacks',
+      value: 'profile.feedbacks',
     },
     {
       title: 'Оценка вежливости',
-      value: 'politeness-survey',
+      value: 'profile.politeness-survey',
     },
   ]);
   const store = useStore();
   const router = useRouter();
+  const route = useRoute();
   const user = store.state.core?.app?.auth_user;
 
-  watch(currentTab, () => router.push({ name: `profile.${currentTab.value}` }));
+  const currentTab = ref(route.name);
+
+  watch(currentTab, () => router.push({ name: `${currentTab.value}` }));
 
   const avatarPath = avatar_path => {
     return `${process.env.VUE_APP_STORAGE_API}${avatar_path}`;

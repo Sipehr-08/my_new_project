@@ -135,7 +135,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center justify-between xl:w-2/5 w-1/2">
+        <div class="flex items-center justify-between xl:w-3/5 2xl:w-2/5 w-full">
           <router-link :to="{ name: 'option' }">
             <div
               :class="{ 'sidebar-active text-primary-500': $route.name === 'option' }"

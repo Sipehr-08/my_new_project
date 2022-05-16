@@ -66,11 +66,11 @@
   getEducations();
   getExperiences();
   getRewards();
-
+  const PositionsCard = defineAsyncComponent(() => import('@/components/profile/PositionsCard'));
   const PhoneIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/PhoneIcon'));
   const MailIcon = defineAsyncComponent(() => import('@heroicons/vue/outline/MailIcon'));
   const AcademicCapIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/AcademicCapIcon'));
-  const BriefcaseIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/BriefcaseIcon'));
+  // const BriefcaseIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/BriefcaseIcon'));
   const AtSkeleton = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtSkeleton/AtSkeleton'));
   const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));
 </script>
@@ -157,62 +157,63 @@
           </div>
         </at-panel>
       </div>
-      <div class="mt-10">
-        <at-panel v-if="experiencesLoading">
-          <div class="flex w-full p-10">
-            <div class="w-1/4 mr-10">
-              <at-skeleton class="w-44 h-6" type="label" />
-            </div>
-            <div class="w-1/4">
-              <div class="mb-4" v-for="i in 3" :key="i">
-                <at-skeleton class="mb-3 w-72 h-5" type="label" />
-                <at-skeleton class="w-44" type="label" />
-              </div>
-            </div>
-          </div>
-        </at-panel>
-        <at-panel v-else>
-          <div class="flex w-full p-10">
-            <div class="mr-10 w-1/4">
-              <h2 class="text-2xl font-bold">Стаж работы</h2>
-              <p class="text-lg text-gray-500">
-                Общий стаж {{ user.whole_experiences.year }}г. {{ user.whole_experiences.month }}м.
-                {{ user.whole_experiences.day }}д
-              </p>
-            </div>
-            <div>
-              <div class="mb-10">
-                <div class="flex items-center">
-                  <BriefcaseIcon class="w-6 h-6 mr-6 text-primary-500" />
-                  <p class="text-lg font-medium">ОАО «Алиф Банк»</p>
-                </div>
-                <p class="text-lg text-gray-500 ml-12">
-                  {{ $filters.readableDate(user.experience_in_alif?.[user.experience_in_alif?.length - 1].started_at) }}
-                  – сейчас
-                </p>
-              </div>
-              <div class="flex items-start" v-for="(experience, index) in experiences" :key="experience.id">
-                <div :class="{ 'bg-blue-50': index === 0 }" class="w-6 h-6 rounded-full relative -mt-2">
-                  <div
-                    :class="{ 'bg-blue-500': index === 0 }"
-                    class="w-3 h-3 rounded-full bg-gray-200 relative m-auto my-1.5"
-                  ></div>
-                </div>
-                <div :class="{ 'border-l-2': index !== experiences.length - 1 }" class="pb-8 pl-10 -ml-3">
-                  <p class="text-lg font-medium -mt-3">
-                    {{ experience.position_name.split(',')[0] }}
-                    <span class="text-base text-gray-500">
-                      / {{ $filters.readableDate(experience.started_at) }} –
-                      {{ experience.ended_at ? $filters.readableDate(experience.ended_at) : 'сейчас' }}
-                    </span>
-                  </p>
-                  <p class="text-gray-500">{{ experience.position_name.split(',').splice(1, 5).join(', ') }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </at-panel>
-      </div>
+      <PositionsCard :user="user" :experiences="experiences" :loading="experiencesLoading" />
+      <!--      <div class="mt-10">-->
+      <!--        <at-panel v-if="experiencesLoading">-->
+      <!--          <div class="flex w-full p-10">-->
+      <!--            <div class="w-1/4 mr-10">-->
+      <!--              <at-skeleton class="w-44 h-6" type="label" />-->
+      <!--            </div>-->
+      <!--            <div class="w-1/4">-->
+      <!--              <div class="mb-4" v-for="i in 3" :key="i">-->
+      <!--                <at-skeleton class="mb-3 w-72 h-5" type="label" />-->
+      <!--                <at-skeleton class="w-44" type="label" />-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </at-panel>-->
+      <!--        <at-panel v-else>-->
+      <!--          <div class="flex w-full p-10">-->
+      <!--            <div class="mr-10 w-1/4">-->
+      <!--              <h2 class="text-2xl font-bold">Стаж работы</h2>-->
+      <!--              <p class="text-lg text-gray-500">-->
+      <!--                Общий стаж {{ user.whole_experiences.year }}г. {{ user.whole_experiences.month }}м.-->
+      <!--                {{ user.whole_experiences.day }}д-->
+      <!--              </p>-->
+      <!--            </div>-->
+      <!--            <div>-->
+      <!--              <div class="mb-10">-->
+      <!--                <div class="flex items-center">-->
+      <!--                  <BriefcaseIcon class="w-6 h-6 mr-6 text-primary-500" />-->
+      <!--                  <p class="text-lg font-medium">ОАО «Алиф Банк»</p>-->
+      <!--                </div>-->
+      <!--                <p class="text-lg text-gray-500 ml-12">-->
+      <!--                  {{ $filters.readableDate(user.experience_in_alif?.[user.experience_in_alif?.length - 1].started_at) }}-->
+      <!--                  – сейчас-->
+      <!--                </p>-->
+      <!--              </div>-->
+      <!--              <div class="flex items-start" v-for="(experience, index) in experiences" :key="experience.id">-->
+      <!--                <div :class="{ 'bg-blue-50': index === 0 }" class="w-6 h-6 rounded-full relative -mt-2">-->
+      <!--                  <div-->
+      <!--                    :class="{ 'bg-blue-500': index === 0 }"-->
+      <!--                    class="w-3 h-3 rounded-full bg-gray-200 relative m-auto my-1.5"-->
+      <!--                  ></div>-->
+      <!--                </div>-->
+      <!--                <div :class="{ 'border-l-2': index !== experiences.length - 1 }" class="pb-8 pl-10 -ml-3">-->
+      <!--                  <p class="text-lg font-medium -mt-3">-->
+      <!--                    {{ experience.position_name.split(',')[0] }}-->
+      <!--                    <span class="text-base text-gray-500">-->
+      <!--                      / {{ $filters.readableDate(experience.started_at) }} –-->
+      <!--                      {{ experience.ended_at ? $filters.readableDate(experience.ended_at) : 'сейчас' }}-->
+      <!--                    </span>-->
+      <!--                  </p>-->
+      <!--                  <p class="text-gray-500">{{ experience.position_name.split(',').splice(1, 5).join(', ') }}</p>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </at-panel>-->
+      <!--      </div>-->
       <div class="mt-10">
         <at-panel v-if="rewardsLoading">
           <div class="flex w-full p-10">

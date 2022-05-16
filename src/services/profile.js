@@ -63,18 +63,18 @@ const getContractRequest = params => apiClient.get(`/my/contract-supplements`, {
 const getExperiencesRequest = params => apiClient.get('/my/experiences', { params });
 
 /**
- * Method to get vacations
+ * Method to get vacations schedules
  * @param params
  * @returns {Promise<AxiosResponse<any>>}
  */
-const getVacationsRequest = params => apiClient.get('/my/vacation-schedules', { params });
+const getVacationSchedulesRequest = params => apiClient.get('/my/vacation-schedules', { params });
 
 /**
  * Method to create vacation
  * @param params
  * @returns {Promise<AxiosResponse<any>>}
  */
-const createVacationRequest = params => apiClient.post('/my/vacation-schedules', params);
+const createVacationScheduleRequest = params => apiClient.post('/my/vacation-schedules', params);
 
 /**
  * Method to get vacation trackers
@@ -171,8 +171,8 @@ export {
   getEmployeeLatenessRequest,
   getContractRequest,
   getExperiencesRequest,
-  getVacationsRequest,
-  createVacationRequest,
+  getVacationSchedulesRequest,
+  createVacationScheduleRequest,
   getVacationTrackersRequest,
   updatePasswordRequest,
   getOptionsRequest,
