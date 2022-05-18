@@ -7,7 +7,7 @@ import AlifUi from './plugins/aliftech-ui';
 import AtToast from '~/plugins/aliftech-ui/toast';
 import '@/assets/css/main.css';
 import NProgress from 'nprogress';
-import { readableDate, readableTime, readableDateMonth } from './utils/filters/dateFilters';
+import { readableDate, readableTime, readableDateMonth, readableMonthYear } from './utils/filters/dateFilters';
 import { priceFormat } from './utils/filters/priceFilter';
 import { numberFormat } from './utils/filters/numberFormat';
 import { phoneNumberFilter } from './utils/filters/numberFilter';
@@ -23,6 +23,7 @@ app.config.globalProperties.$filters = {
   numberFormat,
   priceFormat,
   displayQuantity,
+  readableMonthYear,
 };
 
 app.config.globalProperties.$toast = AtToast;

@@ -91,9 +91,9 @@ export const privateRoutes = [
         },
       },
       {
-        path: '/option',
-        name: 'option',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        path: '/options',
+        name: 'options',
+        component: () => import('@/pages/options/OptionsIndexPage'),
         meta: {
           title: 'Опционы',
         },

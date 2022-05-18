@@ -62,7 +62,7 @@
     </at-table>
     <at-panel class="text-center" v-if="!contracts.data">
       <div class="w-full flex justify-center">
-        <p class="text-gray-500 text-lg">Нет опозданий</p>
+        <p class="text-gray-500 text-lg">Нет данных</p>
       </div>
     </at-panel>
   </div>

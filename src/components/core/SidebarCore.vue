@@ -136,15 +136,17 @@
           </div>
         </div>
         <div class="flex items-center justify-between xl:w-3/5 2xl:w-2/5 w-full">
-          <router-link :to="{ name: 'option' }">
-            <div
-              :class="{ 'sidebar-active text-primary-500': $route.name === 'option' }"
-              class="flex ml-12 sidebar-hover rounded-full pr-2 cursor-pointer flex-nowrap"
-            >
-              <img class="w-7 h-7" :src="OptionIcon" alt="Опцион" />
-              <span class="ml-2 font-medium text-lg whitespace-nowrap">Мои опционы</span>
-            </div>
-          </router-link>
+          <div>
+            <router-link v-if="user.has_options" :to="{ name: 'options' }">
+              <div
+                :class="{ 'sidebar-active text-primary-500': $route.name === 'options' }"
+                class="flex ml-12 sidebar-hover rounded-full pr-2 cursor-pointer flex-nowrap"
+              >
+                <img class="w-7 h-7" :src="OptionIcon" alt="Опцион" />
+                <span class="ml-2 font-medium text-lg whitespace-nowrap">Мои опционы</span>
+              </div>
+            </router-link>
+          </div>
           <router-link :to="{ name: 'profile' }">
             <div
               :class="{ 'sidebar-active text-primary-500': $route.name.includes('profile') }"

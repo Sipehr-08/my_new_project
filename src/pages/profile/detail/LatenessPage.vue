@@ -45,22 +45,22 @@
     >
       <template #element="{ element }">
         <at-table-item>
-          {{ $filters.readableDate(element.created_at) }}
+          <p class="font-semibold">{{ $filters.readableDate(element.created_at) }}</p>
           <p class="text-gray-500">{{ $filters.readableTime(element.created_at) }}</p>
         </at-table-item>
         <at-table-item>
           <at-badge :color="element.status.color">{{ element.status.label }}</at-badge>
         </at-table-item>
         <at-table-item>
-          <p v-if="element.arrival_time">{{ $filters.readableTime(element.arrival_time) }}</p>
+          <p class="font-semibold" v-if="element.arrival_time">{{ $filters.readableTime(element.arrival_time) }}</p>
           <p v-else class="text-gray-500">Пусто</p>
         </at-table-item>
         <at-table-item>
-          <p v-if="element.arrival_time">{{ $filters.readableTime(element.arrival_time) }}</p>
+          <p class="font-semibold" v-if="element.arrival_time">{{ $filters.readableTime(element.arrival_time) }}</p>
           <p v-else class="text-gray-500">Пусто</p>
         </at-table-item>
         <at-table-item>
-          <p class="w-52">
+          <p class="w-52 font-semibold">
             {{ element.comment }}
           </p>
         </at-table-item>

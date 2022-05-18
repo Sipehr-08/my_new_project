@@ -105,10 +105,9 @@ const getStocksAndOptionsAmountRequest = () => apiClient.get('/my/options/stocks
 
 /**
  * Method to get stock price for options
- * @param params
  * @return {Promise<AxiosResponse<any>>}
  */
-const getStockPriceRequest = params => apiClient.get('/stock-price', { params });
+const getStockPriceRequest = () => apiClient.get('/stock-price');
 
 /**
  * Method to get referrals
@@ -145,7 +144,7 @@ const getDollarExchangeOfferRequest = params => apiClient.get('/my/dollar-exchan
  * @param params
  * @returns {Promise<AxiosResponse<any>>}
  */
-const createDollarExchangeOfferRequest = params => apiClient.post('/my/dollar-exchange-offers', params);
+const setDollarExchangeOfferRequest = params => apiClient.post('/my/dollar-exchange-offers', params);
 
 /**
  * Method to get advanced salary
@@ -155,11 +154,11 @@ const createDollarExchangeOfferRequest = params => apiClient.post('/my/dollar-ex
 const getAdvancedSalaryRequest = params => apiClient.get('/my/advances', { params });
 
 /**
- * Method to create advanced salary
+ * Method to set advanced salary
  * @param params
  * @returns {Promise<AxiosResponse<any>>}
  */
-const createAdvancedSalaryRequest = params => apiClient.post('/my/advances', params);
+const setAdvancedSalaryRequest = params => apiClient.post('/my/advances', params);
 
 export {
   getMyContactsRequest,
@@ -180,9 +179,9 @@ export {
   getStockPriceRequest,
   getReferralsRequest,
   getDollarExchangeOfferRequest,
-  createDollarExchangeOfferRequest,
+  setDollarExchangeOfferRequest,
   getAdvancedSalaryRequest,
-  createAdvancedSalaryRequest,
+  setAdvancedSalaryRequest,
   getSentFeedbacksRequest,
   getReceivedFeedbacksRequest,
   getMyReferralsRequest,

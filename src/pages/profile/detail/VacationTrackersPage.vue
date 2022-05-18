@@ -161,16 +161,16 @@
     >
       <template #element="{ element }">
         <at-table-item>
-          {{ element.accrual_group_start_date + ' - ' + element.accrual_group_end_date }}
+          <p class="font-semibold">{{ element.accrual_group_start_date + ' - ' + element.accrual_group_end_date }}</p>
         </at-table-item>
         <at-table-item>
-          <p>{{ $filters.readableDate(element.start_date) }}</p>
+          <p class="font-semibold">{{ $filters.readableDate(element.start_date) }}</p>
         </at-table-item>
         <at-table-item>
-          <p>{{ element.days }}</p>
+          <p class="font-semibold">{{ element.days }}</p>
         </at-table-item>
         <at-table-item>
-          <p>{{ $filters.readableDate(element.end_date) }}</p>
+          <p class="font-semibold">{{ $filters.readableDate(element.end_date) }}</p>
         </at-table-item>
         <!--        <at-table-item>-->
         <!--          <p>{{ element.left_unpaid_days }}</p>-->
@@ -179,7 +179,7 @@
     </at-table>
     <at-panel class="text-center" v-if="!vacationTrackers?.data[0]">
       <div class="w-full flex justify-center">
-        <p class="text-gray-500 text-lg">Нет использованных отпусков</p>
+        <p class="text-gray-500 text-lg а">Нет использованных отпусков</p>
       </div>
     </at-panel>
   </div>

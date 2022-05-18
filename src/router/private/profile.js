@@ -26,12 +26,12 @@ export default [
       {
         path: '/profile/conversion',
         name: 'profile.conversion',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        component: () => import('@/pages/profile/detail/ConversionPage'),
       },
       {
         path: '/profile/advances',
         name: 'profile.advances',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        component: () => import('@/pages/profile/detail/AdvancesPage'),
       },
       {
         path: '/profile/contract',
