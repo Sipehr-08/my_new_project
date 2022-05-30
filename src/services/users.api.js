@@ -7,4 +7,11 @@ import { apiClient } from '~/services/apiClient';
  */
 const getAllUsersRequest = params => apiClient.get('/users', { params });
 
-export { getAllUsersRequest };
+/**
+ * Method to get user by id
+ * @param userId
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+const getUserRequest = userId => apiClient.get(`/users/${userId}`);
+
+export { getAllUsersRequest, getUserRequest };

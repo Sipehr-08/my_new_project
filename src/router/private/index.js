@@ -27,6 +27,14 @@ export const privateRoutes = [
         },
       },
       {
+        path: '/family/:id',
+        name: 'family.show',
+        component: () => import('@/pages/users/UserShowPage'),
+        meta: {
+          title: 'Алиф семья',
+        },
+      },
+      {
         path: '/team',
         name: 'team',
         component: () => import('@/components/core/NotFoundErrorPage'),

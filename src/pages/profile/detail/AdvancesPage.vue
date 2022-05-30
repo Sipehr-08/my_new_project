@@ -58,7 +58,7 @@
   const AtInput = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtInput/AtInput'));
   const AtButton = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtButton/AtButton'));
   const AtTooltip = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTooltip/AtTooltip'));
-  const InformationCircleIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/InformationCircleIcon'));
+  const InformationCircleIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/ExclamationCircleIcon'));
 </script>
 <template>
   <div v-if="loading">

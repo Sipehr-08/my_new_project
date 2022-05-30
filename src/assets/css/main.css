@@ -1,11 +1,11 @@
 @import '~nprogress/nprogress.css';
 body{
-    background-color: #F3F6F9;
-}
+    background-color: #F3F6F9;}
 
 #nprogress .bar {
     height: 2px;
 }
+
 
 .sidebar-hover:hover{
     background-color: rgba(230, 236, 242, 0.42);

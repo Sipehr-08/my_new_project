@@ -20,9 +20,9 @@
     <at-panel class="h-full hover:bg-gray-100 cursor-pointer" :overflow="false">
       <div class="h-full relative">
         <div class="flex w-full justify-center mb-4">
-          <img class="h-32 rounded-full object-fill" :src="avatarPath(props.user.avatar_path)" alt="avatar" />
+          <img class="h-36 rounded-full object-cover" :src="avatarPath(props.user.avatar_path)" alt="avatar" />
         </div>
-        <div class="text-center mb-10">
+        <div class="text-center mb-14">
           <h3 class="text-lg font-bold">{{ props.user.nickname }}</h3>
           <p class="text-gray-400">{{ props.user.user_position_current?.position?.name }}</p>
         </div>

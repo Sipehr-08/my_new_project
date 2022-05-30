@@ -59,14 +59,23 @@
               – сейчас
             </p>
           </div>
-          <div class="flex items-start" v-for="(experience, index) in props.experiences" :key="experience.id">
-            <div :class="{ 'bg-blue-50': index === 0 }" class="w-6 h-6 rounded-full relative -mt-2">
+          <div
+            :class="{ 'border-white': index === props.experiences.length - 1 }"
+            class="flex items-start relative border-l-2"
+            v-for="(experience, index) in props.experiences"
+            :key="experience.id"
+          >
+            <div
+              style="margin-left: 0.172rem"
+              :class="{ 'bg-blue-50': index === 0 }"
+              class="w-6 h-6 rounded-full absolute -top-2 -left-4"
+            >
               <div
                 :class="{ 'bg-blue-500': index === 0 }"
                 class="w-3 h-3 rounded-full bg-gray-200 relative m-auto my-1.5"
               ></div>
             </div>
-            <div :class="{ 'border-l-2': index !== props.experiences.length - 1 }" class="pb-8 pl-10 -ml-3">
+            <div class="pb-8 ml-10">
               <p class="text-lg font-medium -mt-3">
                 {{ experience.position_name.split(',')[0] }}
                 <span class="text-base text-gray-500">
