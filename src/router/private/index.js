@@ -77,10 +77,33 @@ export const privateRoutes = [
       {
         path: '/info',
         name: 'info',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        component: () => import('@/pages/usefulPage/UsefulPage'),
         meta: {
           title: 'Полезно знать',
         },
+        redirect: { name: 'products' },
+        children: [
+          {
+            path: '/info/products',
+            name: 'products',
+            component: () => import('@/pages/usefulPage/ProductsPage'),
+          },
+          {
+            path: '/info/products',
+            name: 'sites',
+            component: () => import('@/pages/usefulPage/ProductsPage'),
+          },
+          {
+            path: '/info/products',
+            name: 'bots',
+            component: () => import('@/pages/usefulPage/ProductsPage'),
+          },
+          {
+            path: '/info/products',
+            name: 'telegram-groups',
+            component: () => import('@/pages/usefulPage/ProductsPage'),
+          },
+        ],
       },
       {
         path: '/game',
