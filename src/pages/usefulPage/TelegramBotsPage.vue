@@ -1,32 +1,29 @@
 <script lang="ts" setup>
   import { defineAsyncComponent, reactive, ref, watch } from 'vue';
-  import { getProductsRequest } from '@/services/useful.api';
+  import { getBotsRequest } from '@/services/useful.api';
 
-  const products = ref<object>({});
+  const bots = ref<object>({});
   const loading = ref<boolean>(false);
   const query = reactive({
     page: 1,
     per_page: 20,
     search_text: '',
   });
-  const avatarPath = (avatar_path: string) => {
-    return `${process.env.VUE_APP_STORAGE_API}${avatar_path}`;
-  };
 
-  const getProducts = () => {
+  const getBots = () => {
     loading.value = true;
-    getProductsRequest(query)
+    getBotsRequest(query)
       .then(res => {
-        products.value = res?.data;
+        bots.value = res?.data;
       })
       .finally(() => {
         loading.value = false;
       });
   };
 
-  watch(query, () => getProducts(), { deep: true });
+  watch(query, () => getBots(), { deep: true });
 
-  getProducts();
+  getBots();
 
   const LinkIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/LinkIcon'));
   const AtPanel = defineAsyncComponent(() => import('~/plugins/aliftech-ui/components/AtPanel/AtPanel'));
@@ -43,47 +40,30 @@
         <at-skeleton class="mb-1 w-full" type="label"></at-skeleton>
         <at-skeleton class="mb-1 w-full" type="label"></at-skeleton>
         <at-skeleton class="mb-1 w-full" type="label"></at-skeleton>
-        <div class="flex items-center mt-8">
-          <at-skeleton class="w-9 h-9 rounded-full"></at-skeleton>
-          <at-skeleton type="label" class="ml-2 h-5 w-44"></at-skeleton>
-        </div>
       </at-panel>
     </div>
   </div>
-  <div>
+  <div v-else>
     <div class="masonry lg:masonry-lg xl:masonry-xl">
-      <div class="break-inside pb-6 pt-1" v-for="product in products?.data" :key="product.id">
+      <div class="break-inside pb-6 pt-1" v-for="bot in bots?.data" :key="bot.id">
         <at-panel class="shadow">
           <a
-            :href="product.link"
+            :href="`https://t.me/${bot.link}`"
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-center text-primary-500 mb-2 hover:text-primary-900"
           >
             <LinkIcon class="w-5 h-5 mr-2"></LinkIcon>
-            <p class="text-lg font-semibold">{{ product.name }}</p>
+            <p class="text-lg font-semibold">{{ bot.name }}</p>
           </a>
-          <div>
-            <p class="text-sm font-semibold">{{ product.description }}</p>
-          </div>
-          <div class="pt-8">
-            <router-link
-              :to="{ name: 'family.show', params: { id: user.id } }"
-              class="flex space-x-4 pb-2"
-              v-for="user in product.users"
-              :key="user.id"
-            >
-              <img class="w-9 h-9 rounded-full object-fill" :src="avatarPath(user.avatar_path)" :alt="user.nickname" />
-              <p class="text-lg font-semibold hover:text-primary-500">{{ user.nickname }}</p>
-            </router-link>
-          </div>
+          <div v-html="bot.description" class="text-sm font-semibold"></div>
         </at-panel>
       </div>
     </div>
-    <div class="pt-4 text-center" v-if="products?.data && products?.last_page !== 1">
+    <div class="pt-4 text-center" v-if="bots?.data && bots?.last_page !== 1">
       <div>
-        <pagination-items-count class="mr-4 -ml-20" :items-meta="products" />
-        <at-pagination v-model="query.page" :total="products?.last_page" />
+        <pagination-items-count class="mr-4 -ml-20" :items-meta="bots" />
+        <at-pagination v-model="query.page" :total="bots?.last_page" />
       </div>
     </div>
   </div>

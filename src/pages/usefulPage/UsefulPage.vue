@@ -1,5 +1,7 @@
 <script setup>
-  import { defineAsyncComponent, reactive, ref } from 'vue';
+  import { defineAsyncComponent, reactive, ref, watch } from 'vue';
+  import router from '@/router';
+  import { useRoute } from 'vue-router';
 
   const tabItems = reactive([
     {
@@ -7,7 +9,7 @@
       value: 'products',
     },
     {
-      title: 'Внешние сайты',
+      title: 'Сайты',
       value: 'sites',
     },
     {
@@ -19,12 +21,15 @@
       value: 'telegram-groups',
     },
   ]);
-  const currentTab = ref('products');
+  const route = useRoute();
+  const currentTab = ref(route.name);
   const query = reactive({
     search_text: '',
     page: 1,
     per_page: 15,
   });
+
+  watch(currentTab, () => router.push({ name: `${currentTab.value}` }));
 
   const AtInput = defineAsyncComponent(() => import('~/plugins/aliftech-ui/components/AtInput/AtInput'));
   const AtTabs = defineAsyncComponent(() => import('~/plugins/aliftech-ui/components/AtTabs/AtTabs'));

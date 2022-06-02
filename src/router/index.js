@@ -1,4 +1,4 @@
-import app from '@/main.js';
+import app from '@/main.ts';
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '@/store';
 import { publicRoutes } from './public';
