@@ -16,6 +16,7 @@
     },
   });
 
+  //aliftech-ui components
   const AtSkeleton = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtSkeleton/AtSkeleton'));
   const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));
   const BriefcaseIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/BriefcaseIcon'));

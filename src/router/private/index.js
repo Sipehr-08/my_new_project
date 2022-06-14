@@ -12,7 +12,7 @@ export const privateRoutes = [
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        component: () => import('@/pages/home/HomePage'),
         meta: {
           title: 'Главная',
         },
@@ -45,7 +45,15 @@ export const privateRoutes = [
       {
         path: '/news',
         name: 'news',
-        component: () => import('@/components/core/NotFoundErrorPage'),
+        component: () => import('@/pages/news/NewsPage'),
+        meta: {
+          title: 'Новости',
+        },
+      },
+      {
+        path: '/news/:id',
+        name: 'news.show',
+        component: () => import('@/pages/news/NewsShowPage'),
         meta: {
           title: 'Новости',
         },
@@ -81,26 +89,26 @@ export const privateRoutes = [
         meta: {
           title: 'Полезно знать',
         },
-        redirect: { name: 'products' },
+        redirect: { name: 'info.products' },
         children: [
           {
             path: '/info/products',
-            name: 'products',
+            name: 'info.products',
             component: () => import('@/pages/usefulPage/ProductsPage'),
           },
           {
             path: '/info/sites',
-            name: 'sites',
+            name: 'info.sites',
             component: () => import('@/pages/usefulPage/WebSitesPage'),
           },
           {
             path: '/info/bots',
-            name: 'bots',
+            name: 'info.bots',
             component: () => import('@/pages/usefulPage/TelegramBotsPage'),
           },
           {
             path: '/info/telegram-groups',
-            name: 'telegram-groups',
+            name: 'info.telegram-groups',
             component: () => import('@/pages/usefulPage/TelegramGroupsPage'),
           },
         ],

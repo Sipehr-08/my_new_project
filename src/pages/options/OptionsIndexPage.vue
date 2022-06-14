@@ -2,16 +2,23 @@
   import { defineAsyncComponent, reactive, ref, watch } from 'vue';
   import { getOptionsRequest, getStocksAndOptionsAmountRequest, getStockPriceRequest } from '@/services/profile';
   import CoreSkeleton from '~/components/core/skeletons/SkeletonLoading';
+
+  //data
   const options = ref({});
   const stocksAmount = ref(0);
   const optionsAmount = ref(0);
   const stockPrice = ref(0);
+
+  //loading
   const loading = ref(false);
+
+  //query params
   const query = reactive({
     page: 1,
     per_page: 15,
   });
 
+  //functions
   const getOptions = () => {
     loading.value = true;
     getOptionsRequest(query)
@@ -22,14 +29,12 @@
         loading.value = false;
       });
   };
-
   const getStocksAndOptionsAmount = () => {
     getStocksAndOptionsAmountRequest().then(res => {
       stocksAmount.value = res?.data?.stocks;
       optionsAmount.value = res?.data?.options;
     });
   };
-
   const getStockPrice = () => {
     getStockPriceRequest().then(res => {
       stockPrice.value = res?.data?.price;
@@ -41,6 +46,7 @@
   getStockPrice();
   getOptions();
 
+  //aliftech-ui components
   const AtTable = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTable/AtTable'));
   const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));
   const AtTableItem = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTableItem/AtTableItem'));

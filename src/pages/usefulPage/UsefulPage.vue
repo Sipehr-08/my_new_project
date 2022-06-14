@@ -6,19 +6,19 @@
   const tabItems = reactive([
     {
       title: 'Продукты',
-      value: 'products',
+      value: 'info.products',
     },
     {
       title: 'Сайты',
-      value: 'sites',
+      value: 'info.sites',
     },
     {
       title: 'Telegram-боты',
-      value: 'bots',
+      value: 'info.bots',
     },
     {
       title: 'Группы и каналы в Telegram',
-      value: 'telegram-groups',
+      value: 'info.telegram-groups',
     },
   ]);
   const route = useRoute();
@@ -39,7 +39,12 @@
   <div>
     <h2 class="header-title">Полезно знать</h2>
     <div>
-      <at-input class="w-full md:w-96 mb-6" label="Поиск" placeholder="ФИО" v-model="query.search_text"></at-input>
+      <at-input
+        class="w-full md:w-96 mb-6"
+        label="Поиск"
+        placeholder="Поиск по название"
+        v-model="query.search_text"
+      ></at-input>
     </div>
     <at-panel>
       <div class="mt-4">

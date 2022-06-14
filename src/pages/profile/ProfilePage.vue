@@ -50,6 +50,7 @@
     return `${process.env.VUE_APP_STORAGE_API}${avatar_path}`;
   };
 
+  //aliftech-ui components
   const AtTabs = defineAsyncComponent(() => import('~/plugins/aliftech-ui/components/AtTabs/AtTabs'));
 </script>
 <template>

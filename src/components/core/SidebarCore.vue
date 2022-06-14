@@ -95,11 +95,11 @@
         <div class="flex-1 h-0 overflow-y-auto">
           <router-link v-for="(item, index) in items" :key="index" :to="{ name: item.name }">
             <div
-              :class="{ 'sidebar-active text-black': item.name === $route.name }"
+              :class="{ 'sidebar-active text-black': $route.name.includes(item.name) }"
               class="flex items-center cursor-pointer block ml-7 px-3 py-3 rounded-lg sidebar-hover"
             >
               <img class="h-7 w-6 mr-5" :src="item.icon" alt="" />
-              <span :class="{ 'text-gray-600': item.name === $route.name }" class="text-gray-400 font-semibold">
+              <span :class="{ 'text-gray-600': $route.name.includes(item.name) }" class="text-gray-400 font-semibold">
                 {{ item.title }}
               </span>
             </div>
@@ -152,7 +152,7 @@
               :class="{ 'sidebar-active text-primary-500': $route.name.includes('profile') }"
               class="flex ml-4 cursor-pointer flex-nowrap rounded-full sidebar-hover pr-3"
             >
-              <img class="w-9 h-9 rounded-full border border-primary-500 object-cover" :src="userAvatar" alt="Опцион" />
+              <img class="w-9 h-9 rounded-full border border-primary-500 object-cover" :src="userAvatar" alt="Аватар" />
               <span class="whitespace-nowrap ml-2 my-auto text-lg">{{ user.nickName }}</span>
             </div>
           </router-link>

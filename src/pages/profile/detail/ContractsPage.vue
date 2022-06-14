@@ -2,12 +2,19 @@
   import { defineAsyncComponent, reactive, ref, watch } from 'vue';
   import { getContractRequest } from '@/services/profile';
   import CoreSkeleton from '~/components/core/skeletons/SkeletonLoading';
+
+  //data
   const contracts = ref({});
+
+  //loading
   const loading = ref(false);
+
+  //query params
   const query = reactive({
     page: 1,
     per_page: 10,
   });
+
   const getContracts = () => {
     loading.value = true;
     getContractRequest(query)
@@ -18,9 +25,11 @@
         loading.value = false;
       });
   };
+
   watch(query, () => getContracts(), { deep: true });
   getContracts();
 
+  //aliftech-ui components
   const AtTable = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTable/AtTable'));
   const AtTableItem = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTableItem/AtTableItem'));
   const AtPagination = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPagination/AtPagination'));

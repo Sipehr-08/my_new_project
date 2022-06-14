@@ -49,6 +49,7 @@
   watch(query, () => getAdvancedSalary(), { deep: true });
   getAdvancedSalary();
 
+  //aliftech-ui components
   const AtTable = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTable/AtTable'));
   const AtTableItem = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtTableItem/AtTableItem'));
   const AtBadge = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtBadge/AtBadge'));

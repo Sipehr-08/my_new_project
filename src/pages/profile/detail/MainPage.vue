@@ -12,11 +12,15 @@
   import MedalIcon from '@/assets/icons/medalIcon.png';
 
   const store = useStore();
+
+  //loading
   const contactsLoading = ref(false);
   const educationsLoading = ref(false);
   const experiencesLoading = ref(false);
   const rewardsLoading = ref(false);
   const referralLoading = ref(false);
+
+  //data
   const user = store.state.core?.app?.auth_user;
   const social = reactive({
     emails: null,
@@ -28,6 +32,7 @@
   const rewards = ref({});
   const referrals = ref({});
 
+  //functions
   const getMyContacts = () => {
     contactsLoading.value = true;
     getMyContactsRequest({ per_page: 15 })
@@ -77,16 +82,21 @@
       });
   };
 
+  //functions call
   getMyContacts();
   getEducations();
   getExperiences();
   getRewards();
   getMyReferrals();
+
+  //other components
   const PositionsCard = defineAsyncComponent(() => import('@/components/profile/PositionsCard'));
   const PhoneIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/PhoneIcon'));
   const MailIcon = defineAsyncComponent(() => import('@heroicons/vue/outline/MailIcon'));
   const AcademicCapIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/AcademicCapIcon'));
   const StarIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/StarIcon'));
+
+  //aliftech-ui components
   // const BriefcaseIcon = defineAsyncComponent(() => import('@heroicons/vue/solid/BriefcaseIcon'));
   const AtSkeleton = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtSkeleton/AtSkeleton'));
   const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));

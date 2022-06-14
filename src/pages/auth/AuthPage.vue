@@ -29,6 +29,7 @@
       });
   };
 
+  //aliftech-ui components
   const AtLoginPage = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtLoginPage/AtLoginPage'));
 </script>
 <template>

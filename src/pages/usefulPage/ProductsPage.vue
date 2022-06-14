@@ -50,7 +50,7 @@
       </at-panel>
     </div>
   </div>
-  <div>
+  <div v-else>
     <div class="masonry lg:masonry-lg xl:masonry-xl">
       <div class="break-inside pb-6 pt-1" v-for="product in products?.data" :key="product.id">
         <at-panel class="shadow">

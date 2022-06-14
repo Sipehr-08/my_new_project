@@ -12,6 +12,7 @@
     return `${process.env.VUE_APP_STORAGE_API}${avatar_path}`;
   };
 
+  //aliftech-ui components
   const LocationIcon = defineAsyncComponent(() => import('@heroicons/vue/outline/LocationMarkerIcon'));
   const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));
 </script>
