@@ -1,4 +1,4 @@
-# hr-new-design
+# sudimosti.net
 
 ## Project setup
 ```
