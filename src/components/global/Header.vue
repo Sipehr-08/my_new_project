@@ -9,12 +9,6 @@
           <router-link
             :to="navLink.route"
             class="border-b-2 border-b-transparent text-lg md:text-xl transition-all hover:border-b-primary"
-            :class="{
-              'border-b-primary':
-                this.$route.path === navLink.route ||
-                this.$route.path === `${navLink.route}/applications` ||
-                this.$route.path === `${navLink.route}/settings`,
-            }"
           >
             {{ navLink.text }}
           </router-link>
