@@ -1,23 +1,21 @@
 <script setup>
   import { ref } from 'vue';
-  import { login } from '@/services/auth.api';
-  import { useRouter } from 'vue-router';
+  import { registration } from '@/services/auth.api';
+  // import { useRouter, useRoute } from 'vue-router';
   import NProgress from 'nprogress';
   import IllustrationsSignIn from '~/components/illustrations/SignIn';
 
-  const router = useRouter();
   const loading = ref(false);
   const user = ref({
+    full_name: '',
     email: '',
     password: '',
   });
   const loginHandler = () => {
     NProgress.start();
     loading.value = true;
-    login(user.value)
-      .then(() => {
-        router.push({ name: 'applications' });
-      })
+    registration(user.value)
+      .then(() => {})
       .finally(() => {
         NProgress.done();
         loading.value = false;
@@ -31,7 +29,12 @@
         <IllustrationsSignIn />
       </div>
       <div class="w-full md:basis-1/2 lg:basis-2/5">
-        <h2 class="mb-10">Вход</h2>
+        <h2 class="mb-10">Регистрация</h2>
+        <div class="mb-5">
+          <label for="name">Введите имя</label>
+          <input type="text" name="name" id="name" placeholder="Имя" v-model="user.full_name" />
+          <small v-if="nameError">{{ nameError }}</small>
+        </div>
         <div class="mb-5">
           <label for="email">Введите email</label>
           <input type="email" name="email" id="email" placeholder="Email" v-model="user.email" />
@@ -49,12 +52,12 @@
           @click="loginHandler"
           class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:text-primary hover:bg-white"
         >
-          Войти
+          Зарегистрироваться
         </button>
         <div class="text-center">
           <p>
-            У вас нет учетной записы?
-            <router-link :to="{ name: 'registration' }" class="underline text-primary">Регистрация</router-link>
+            У вас есть учетная запись?
+            <RouterLink to="/auth" class="underline text-primary">Вход</RouterLink>
           </p>
         </div>
       </div>

@@ -13,7 +13,7 @@ const throttleConfig = {
 };
 
 const apiClient = axios.create({
-  baseURL: `${process.env.VUE_APP_BACKEND_API}`,
+  baseURL: `${process.env.VUE_APP_BACKEND_API}api/`,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -23,16 +23,14 @@ const apiClient = axios.create({
 
 const generateErrorToaster = errors => {
   if (errors && objCheckType(errors, 'string')) {
-    app.config.globalProperties?.$toast.show({
-      title: 'Ошибка!',
-      subTitle: errors,
+    app.config.globalProperties?.$toast.open({
+      message: errors,
       type: 'error',
     });
   } else if (errors && errors.length) {
     errors.forEach(error => {
       app.config.globalProperties?.$toast.show({
-        title: 'Ошибка!',
-        subTitle: error,
+        message: error,
         type: 'error',
       });
     });

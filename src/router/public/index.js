@@ -9,4 +9,34 @@ export const publicRoutes = [
       title: 'Вход',
     },
   },
+  {
+    path: '/registration',
+    name: 'registration',
+    component: () => import(`@/layouts/AuthLayout`),
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true,
+      title: 'Регистрация',
+    },
+  },
+  {
+    path: '/reset',
+    name: 'reset',
+    component: () => import(`@/layouts/AuthLayout`),
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true,
+      title: 'Сброс пароля',
+    },
+  },
+  {
+    path: '/new-password',
+    name: 'new-password',
+    component: () => import(`@/layouts/AuthLayout`),
+    meta: {
+      public: true,
+      onlyWhenLoggedOut: true,
+      title: 'Сброс пароля',
+    },
+  },
 ];

@@ -3,7 +3,7 @@ import app from '../main';
 import { objCheckType } from '~/utils/computeFunc';
 import router from '~/router';
 
-const END_POINT = '/auth';
+const END_POINT = 'auth';
 
 /**
  * Set authentication setting after login
@@ -14,8 +14,8 @@ const END_POINT = '/auth';
 const setAuth = (res, rememberMe) => {
   const data = res?.data;
   const accessToken = data?.access_token;
-  const tokenType = data?.token_type;
-  const expiresIn = data?.expires_in ?? 1;
+  const tokenType = 'bearer';
+  const expiresIn = 1;
   const token = tokenType + ' ' + accessToken;
 
   if (objCheckType(accessToken, 'string') && objCheckType(tokenType, 'string')) {
@@ -38,15 +38,19 @@ const setAuth = (res, rememberMe) => {
  */
 const login = params =>
   apiClient
-    .post(`${END_POINT}/login`, { remember_me: true, ...params })
+    .post(`auth/sign-in`, { remember_me: true, ...params })
     .then(response => setAuth(response, params.remember_me));
+/**
+ * @param {Object} params - Request params
+ * @returns {Promise<*>}
+ */
+const registration = params =>
+  apiClient.post(`auth/sign-up`, { ...params }).then(response => setAuth(response, params.remember_me));
 
 const logout = () =>
-  apiClient.post('/auth/logout').then(() => {
-    clearCookie().finally(() => {
-      delete apiClient.defaults.headers['Authorization'];
-      router.push({ name: 'auth' }).finally(() => {});
-    });
+  clearCookie().finally(() => {
+    delete apiClient.defaults.headers['Authorization'];
+    router.push({ name: 'auth' });
   });
 
 /**
@@ -55,4 +59,4 @@ const logout = () =>
  */
 const changePassword = params => apiClient.patch(`${END_POINT}/password`, params);
 
-export { login, logout, changePassword };
+export { login, logout, registration, changePassword };

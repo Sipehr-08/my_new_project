@@ -1,6 +1,5 @@
 import app from '@/main.ts';
 import { createRouter, createWebHistory } from 'vue-router';
-import store from '@/store';
 import { publicRoutes } from './public';
 import { privateRoutes } from './private';
 const routes = [...publicRoutes, ...privateRoutes];
@@ -11,19 +10,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  document.title = 'Alif - HR' + (to?.meta?.title ? ' - ' + to.meta.title : '');
+  document.title = 'Судимость' + (to?.meta?.title ? ' - ' + to.meta.title : '');
   const token = app.config.globalProperties?.$cookies?.get('auth');
-  if (token) {
-    if (!store.state?.core?.app) await store?.dispatch('core/getApp');
-    next();
+  if ((to.name === 'applications' || to.name === 'settings') && !token) {
+    next({
+      name: 'auth',
+    });
   } else {
-    if (to.name !== 'auth') {
-      next({
-        name: 'auth',
-      });
-    } else {
-      next();
-    }
+    next();
   }
 });
 

@@ -1,281 +1,128 @@
-<script lang="ts" setup>
-  import { defineAsyncComponent, reactive, ref } from 'vue';
-  import { getNewsRequest } from '@/services/news.api';
-  import { getNewEmployeesRequest, getUpcomingBirthdaysRequest } from '@/services/home.api';
-  import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
+<script setup>
+  import { ChevronDoubleRightIcon } from '@heroicons/vue/solid';
+  import IllustrationsLawFirm from '~/components/illustrations/LawFirm';
+  import IllustrationsFillOut from '~/components/illustrations/FillOut';
+  import IllustrationsProcess from '@/components/illustrations/ProcessIn';
+  import { ref } from 'vue';
 
-  //data
-  const historyOfSuccess = ref<object>({});
-  const birthdays = ref<object>({});
-  const news = ref<object>({});
-  const newEmployees = ref<object>({});
+  const requirePlaces = ref([
+    {
+      id: Date.now(),
+      text: 'для трудоустройства или получения лицензии в некоторых сферах деятельности (госслужба, медицина, педагогика, операции с ценными бумагами)',
+    },
+    { id: Date.now(), text: 'для получения вида на жительство или иностранного гражданства' },
+    { id: Date.now(), text: 'для разрешения на оружие' },
+    { id: Date.now(), text: 'а также для усыновления, удочерения детей' },
+  ]);
 
-  //loading
-  const newsLoading = ref<boolean>(false);
-  const newEmployeesLoading = ref<boolean>(false);
-  const historyLoading = ref<boolean>(false);
-  const birthdayLoading = ref<boolean>(false);
-
-  //query params
-  const query = reactive({
-    page: 1,
-    per_page: 10,
-    category_ids: [9],
-    status_id: [2],
-  });
-
-  //options
-  const breakpoints = ref<object>({
-    700: { itemsToShow: 1 },
-    900: { itemsToShow: 1.2 },
-    1000: { itemsToShow: 1.4 },
-    1100: { itemsToShow: 1.9 },
-    1200: { itemsToShow: 2 },
-    1300: { itemsToShow: 2.2 },
-    1400: { itemsToShow: 2.5 },
-    1500: { itemsToShow: 3 },
-    1600: { itemsToShow: 3.5 },
-  });
-
-  const avatarPath = (avatar_path: string) => {
-    return `${process.env.VUE_APP_STORAGE_API}${avatar_path}`;
-  };
-
-  const getHistoryOfSuccess = (): void => {
-    historyLoading.value = true;
-    getNewsRequest(query)
-      .then(res => {
-        historyOfSuccess.value = res?.data;
-      })
-      .finally(() => {
-        historyLoading.value = false;
-      });
-  };
-
-  const getNews = (): void => {
-    newsLoading.value = true;
-    getNewsRequest({ per_page: 10 })
-      .then(res => {
-        news.value = res.data;
-      })
-      .finally(() => {
-        newsLoading.value = false;
-      });
-  };
-
-  const getUpcomingBirthdays = (): void => {
-    birthdayLoading.value = true;
-    getUpcomingBirthdaysRequest({ per_page: 15 })
-      .then(res => {
-        birthdays.value = res?.data;
-      })
-      .finally(() => {
-        birthdayLoading.value = false;
-      });
-  };
-
-  const getNewEmployees = (): void => {
-    newEmployeesLoading.value = true;
-    getNewEmployeesRequest()
-      .then(res => {
-        newEmployees.value = res?.data;
-      })
-      .finally(() => {
-        newEmployeesLoading.value = false;
-      });
-  };
-
-  getUpcomingBirthdays();
-  getNewEmployees();
-  getHistoryOfSuccess();
-  getNews();
-
-  //aliftech-ui components
-  const AtPanel = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtPanel/AtPanel'));
-  const AtSkeleton = defineAsyncComponent(() => import('@/plugins/aliftech-ui/components/AtSkeleton/AtSkeleton'));
+  const process = ref([
+    {
+      id: Date.now(),
+      order: 1,
+      title: 'Оплата справки в банке',
+      description:
+        'Оплату можно воспроизвести в Амонатбонке и далее с чеком подойти в районный МВД. Также, при оплате нужно уточнить срочность получения',
+    },
+    {
+      id: Date.now(),
+      order: 2,
+      title: 'Заполнить анкеты в МВД',
+      description: 'В МВД вашего района нужно предъявить чек и далее заполнить анкету. Образец можно посмотреть тут',
+    },
+    {
+      id: Date.now(),
+      order: 3,
+      title: 'Дополнительные уточнения',
+      description: 'К дополнительным опциям можно отнести следущее: справка по договоренности; язык документа',
+    },
+  ]);
 </script>
 <template>
-  <div class="grid grid-cols-12">
-    <div class="col-span-7 2xl:col-span-8 pl-4">
-      <div>
-        <h2 class="header-title mb-8">Истории успеха</h2>
-        <div v-if="historyLoading" class="flex space-x-6 ml-2 mb-10">
-          <at-skeleton v-for="index in 3" :key="index" class="w-56 h-64 rounded" type="image"></at-skeleton>
-        </div>
-        <div v-else>
-          <Carousel :breakpoints="breakpoints" :items-to-show="2.5" :wrap-around="false">
-            <Slide v-for="slide in historyOfSuccess.data" :key="slide.id">
-              <router-link
-                :to="{ name: 'news.show', params: { id: slide.id } }"
-                class="carousel__slide relative hover:opacity-80 cursor-pointer"
-              >
-                <img
-                  class="w-56 h-64 rounded object-cover border border-primary-500"
-                  :src="avatarPath(slide.images[0].path)"
-                  alt=""
-                />
-                <div class="absolute h-52 w-56 left-0 bottom-0 card-gradient"></div>
-                <div class="absolute left-3 bottom-3">
-                  <p style="font-weight: 720; font-size: 18px; line-height: 20px" class="w-1/2">
-                    {{ slide.user.nickname }}
-                  </p>
-                </div>
-              </router-link>
-            </Slide>
-            <template #slide>
-              <div class="carousel__slide relative">
-                <div class="w-56 h-64 bg-gray-200"></div>
-              </div>
-            </template>
-            <template #addons>
-              <navigation />
-              <pagination />
-            </template>
-          </Carousel>
-        </div>
+  <div>
+    <section class="flex flex-col-reverse md:flex-row items-center justify-between mb-20">
+      <div class="w-full md:basis-1/2 lg:basis-1/3 md:mr-5 lg:mr-0">
+        <h1 class="mb-3 md:mb-5">Справка не выходя из дома</h1>
+        <p class="mb-7 md:mb-10">
+          <strong class="text-primary">Судимости<span class="text-dark">.нет</span></strong> - это платформа с помощью
+          которой вы можете получить справку об отсутствии судимости. Просто оставьте заявку заполнив форму своими
+          данными!
+        </p>
+
+        <router-link to="/application">
+          <button
+            class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:text-primary hover:bg-white"
+          >
+            Нужна справка
+          </button>
+        </router-link>
       </div>
-      <div>
-        <div v-if="newsLoading">
-          <at-panel v-for="i in 2" :key="i" class="mt-8">
-            <div class="flex space-x-6 w-full">
-              <at-skeleton class="w-14 h-14" type="avatar"></at-skeleton>
-              <div class="w-full">
-                <div class="flex justify-between items-start">
-                  <at-skeleton class="w-64 h-6 mb-4" type="label"></at-skeleton>
-                  <at-skeleton type="label"></at-skeleton>
-                </div>
-                <at-skeleton class="w-full mb-2" type="label"></at-skeleton>
-                <at-skeleton class="w-full mb-2" type="label"></at-skeleton>
-                <at-skeleton class="w-full mb-2" type="label"></at-skeleton>
-                <at-skeleton class="my-6 w-44" type="label"></at-skeleton>
-                <at-skeleton class="h-64 w-4/6" type="image"></at-skeleton>
-              </div>
-            </div>
-          </at-panel>
+      <div class="w-full basis-1/2 mb-5 md:mb-0">
+        <IllustrationsLawFirm />
+      </div>
+    </section>
+    <section class="mb-20">
+      <h1 class="mb-10 text-center">О справке</h1>
+
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="w-full md:basis-1/2 md:mr-5 lg:mr-0 mb-5 md:mb-0">
+          <IllustrationsFillOut />
         </div>
-        <div v-else>
-          <div v-for="newsCard in news.data" :key="newsCard.id" class="mt-8">
-            <at-panel>
-              <div class="flex space-x-4">
-                <div class="w-20 overflow-visible">
-                  <img
-                    class="w-14 h-14 rounded-full border border-primary-500 object-cover"
-                    :src="avatarPath(newsCard.user.avatar_path)"
-                    alt="аватар"
-                  />
-                </div>
-                <div class="w-full">
-                  <div class="flex justify-between w-full">
-                    <p class="text-xl font-semibold">{{ newsCard.user.nickname }}</p>
-                    <p class="text-gray-500">{{ $filters.readableDate(newsCard.published_at) }}</p>
-                  </div>
-                  <div>
-                    <p class="font-semibold mt-1">{{ newsCard.title }}</p>
-                    <div>
-                      <div class="max-h-12 overflow-hidden mb-4" v-html="newsCard.description"></div>
-                      <router-link
-                        :to="{ name: 'news.show', params: { id: newsCard.id } }"
-                        class="cursor-pointer text-lg hover:underline text-blue-400"
-                      >
-                        Показать полностью...
-                      </router-link>
-                      <div>
-                        <img class="h-64 mt-4" :src="avatarPath(newsCard.image_path)" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </at-panel>
-          </div>
+        <div class="w-full md:basis-1/2 lg:basis-1/3">
+          <h2 class="mb-5 md:mb-7">Что за справка?</h2>
+          <p class="mb-3 md:mb-5">
+            <strong>Справка об отсутствии <i>(наличии)</i> судимости</strong> — документ <i>(справка)</i>, который
+            подтверждает отсутствие <i>(наличие)</i> судимости гражданина. Данный документ может потребоваться:
+          </p>
+          <ul>
+            <li v-for="{ id, text } in requirePlaces" :key="id" class="flex items-center mb-2 md:mb-4 last:mb-0">
+              <span class="inline-block mr-1 md:mr-3">
+                <ChevronDoubleRightIcon class="w-6 text-dark" />
+              </span>
+              {{ text }}
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="col-span-5 2xl:col-span-4 pl-10">
-      <div>
-        <at-panel>
-          <div class="relative h-20 flex items-center justify-center mb-6">
-            <div
-              style="background-color: #ebfeff"
-              class="absolute rounded-tl-full rounded-r-full bg-blue-200 h-20 w-24 left-auto right-auto top-0"
-            ></div>
-            <div class="text-center absolute">
-              <p class="text-2xl font-light">HAPPY</p>
-              <p class="text-3xl font-semibold">BIRTHDAY</p>
-            </div>
-          </div>
-          <div class="pt-2" v-if="birthdayLoading">
-            <div class="my-5" v-for="i in 4" :key="i">
-              <div class="flex w-full space-x-4">
-                <div>
-                  <at-skeleton class="w-14 h-14" type="avatar"></at-skeleton>
-                </div>
-                <div class="w-full">
-                  <at-skeleton class="h-6 w-48 mb-2" type="label"></at-skeleton>
-                  <at-skeleton type="label"></at-skeleton>
-                </div>
-              </div>
-              <hr class="mt-5" />
-            </div>
-          </div>
-          <div v-else class="max-h-96 overflow-y-auto">
-            <div class="my-5 cursor-pointer" v-for="user in birthdays.data" :key="user.id">
-              <router-link :to="{ name: 'family.show', params: { id: user.id } }">
-                <div class="flex space-x-4 bg-">
-                  <img
-                    :class="{ 'border border-red-500 shadow': !user.days_left }"
-                    class="w-14 h-14 object-cover rounded-full"
-                    :src="avatarPath(user.avatar_path)"
-                    alt="аватар"
-                  />
-                  <div>
-                    <p class="text-lg font-semibold">{{ user.nickname }}</p>
-                    <p v-if="!user.days_left" class="text-red-500 font-semibold">Сегодня</p>
-                    <p v-else-if="user.days_left === 1" class="text-green-400 font-semibold">Завтра</p>
-                    <p v-else class="text-gray-400">{{ $filters.readableDate(user.birth_date) }}</p>
-                  </div>
-                </div>
-              </router-link>
-              <hr class="mt-5" />
-            </div>
-          </div>
-        </at-panel>
+    </section>
+    <section class="mb-20">
+      <h1 class="mb-10 text-center">Как получить?</h1>
+
+      <div class="flex flex-col-reverse md:flex-row items-center justify-between">
+        <div class="w-full md:basis-1/2 lg:basis-1/3 md:mr-5 lg:mr-0">
+          <h2 class="mb-5 md:mb-8">Процесс выглядит так:</h2>
+          <ul>
+            <li v-for="{ id, order, title, description } in process" :key="id" class="flex mb-3 md:mb-6 last:mb-0">
+              <span class="text-4xl lg:text-5xl mr-3 md:mr-6 font-bold text-primary">
+                {{ order }}
+              </span>
+              <span>
+                <strong class="block">{{ title }}</strong>
+                <small>{{ description }}</small>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="w-full md:basis-1/2 mb-5 md:mb-0">
+          <IllustrationsProcess />
+        </div>
       </div>
-      <div class="mt-6">
-        <at-panel>
-          <div class="relative h-20 flex items-center justify-center">
-            <h3 class="text-xl font-semibold">Новые сотрудники</h3>
-          </div>
-          <div class="pt-2" v-if="newEmployeesLoading">
-            <div class="my-5" v-for="i in 4" :key="i">
-              <div class="flex w-full space-x-4">
-                <div>
-                  <at-skeleton class="w-14 h-14" type="avatar"></at-skeleton>
-                </div>
-                <div class="w-full">
-                  <at-skeleton class="h-6 w-48 mb-2" type="label"></at-skeleton>
-                  <at-skeleton class="w-40" type="label"></at-skeleton>
-                </div>
-              </div>
-              <hr class="mt-5" />
-            </div>
-          </div>
-          <div v-else class="max-h-96 overflow-y-auto">
-            <div class="my-5 cursor-pointer" v-for="user in newEmployees.data" :key="user.id">
-              <router-link :to="{ name: 'family.show', params: { id: user.id } }">
-                <div class="flex space-x-4 bg-">
-                  <img class="w-14 h-14 object-cover rounded-full" :src="avatarPath(user.avatar_path)" alt="аватар" />
-                  <div>
-                    <p class="text-lg font-semibold">{{ user.nickname }}</p>
-                    <p class="text-gray-400">{{ user.user_position_current.position.name }}</p>
-                  </div>
-                </div>
-              </router-link>
-              <hr class="mt-5" />
-            </div>
-          </div>
-        </at-panel>
+    </section>
+    <section class="mb-20 text-center">
+      <h1 class="mb-4 md:mb-8">Оставить заявку</h1>
+      <div class="md:w-1/2 mx-auto">
+        <p class="mb-5 md:mb-10 text-xl md:text-2xl">
+          Кликните на кнопку ниже, чтобы перейти к заполнению формы для получения справки. Вы поулчите ответ в
+          кратчайшие сроки!
+        </p>
+
+        <router-link to="/application" class="w-full">
+          <button
+            class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:text-primary hover:bg-white"
+          >
+            К форме
+          </button>
+        </router-link>
       </div>
-    </div>
+    </section>
   </div>
 </template>
