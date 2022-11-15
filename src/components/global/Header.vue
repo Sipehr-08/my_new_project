@@ -45,7 +45,7 @@
         <ul class="flex flex-col items-center">
           <li v-for="navLink in navLinks" :key="navLink.id" class="mb-3 last:mb-0">
             <router-link :to="navLink.route" @click="isMenuVisible = !isMenuVisible" class="text-2xl">
-              {{ text }}
+              {{ navLink.text }}
             </router-link>
           </li>
         </ul>
