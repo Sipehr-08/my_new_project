@@ -1,8 +1,6 @@
 <script setup>
   import { ref } from 'vue';
   import { registration } from '@/services/auth.api';
-  // import { useRouter, useRoute } from 'vue-router';
-  import NProgress from 'nprogress';
   import IllustrationsSignIn from '~/components/illustrations/SignIn';
   import { useToast } from 'vue-toastification';
 
@@ -27,7 +25,6 @@
     )
       return;
     if (user.value.password !== password_yet.value) return;
-    NProgress.start();
     loading.value = true;
     registration(user.value)
       .then(() => {
@@ -36,7 +33,6 @@
         });
       })
       .finally(() => {
-        NProgress.done();
         loading.value = false;
       });
   };
