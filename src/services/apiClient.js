@@ -5,6 +5,8 @@ import { parseErrorsFromResponse } from '~/utils/parsers';
 import { objCheckType } from '~/utils/computeFunc';
 import app from '~/main';
 import { useCookies } from 'vue3-cookies';
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
 const { cookies } = useCookies();
 
@@ -23,16 +25,10 @@ const apiClient = axios.create({
 
 const generateErrorToaster = errors => {
   if (errors && objCheckType(errors, 'string')) {
-    app.config.globalProperties?.$toast.open({
-      message: errors,
-      type: 'error',
-    });
+    toast.error(errors);
   } else if (errors && errors.length) {
     errors.forEach(error => {
-      app.config.globalProperties?.$toast.show({
-        message: error,
-        type: 'error',
-      });
+      toast.error(error);
     });
   }
 };

@@ -195,6 +195,7 @@
           :disabled="!agreement || loading"
           class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:bg-whitedisabled:pointer-events-none disabled:opacity-50"
         >
+          <img v-show="loading" class="w-8 -my-4 -ml-10 mr-2" src="../../assets/spinner.gif" alt="" />
           Отправить
         </button>
       </div>
@@ -206,6 +207,8 @@
   import { createApplicationRequest } from '@/services/app.api';
   import { useRouter } from 'vue-router';
   import { ref } from 'vue';
+  import { useToast } from 'vue-toastification';
+  const toast = useToast();
   const router = useRouter();
   const agreement = ref(false);
   const loading = ref(false);
@@ -265,8 +268,10 @@
       formData.append(i, user[i]);
     }
     createApplicationRequest(formData)
-      .then(res => {
-        console.dir(res.data);
+      .then(() => {
+        toast.success('Ваша заявка успешно принято', {
+          timeout: 3000,
+        });
         clear();
       })
       .finally(() => {
@@ -275,7 +280,6 @@
   };
 
   const onFileChange = event => {
-    console.dir(event);
     const inputName = event.target.name;
     if (!event.target.files?.length) {
       return;

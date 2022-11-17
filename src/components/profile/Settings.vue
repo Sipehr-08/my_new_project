@@ -2,8 +2,8 @@
   <form action="/profile/edit" method="post">
     <h2 class="mb-5">Профиль пользователя</h2>
     <div class="mb-5">
-      <label for="name">Ваше имя</label>
-      <input type="text" name="name" id="name" placeholder="Имя" :value="user.name" />
+      <label for="name">ФИО</label>
+      <input type="text" name="name" id="name" placeholder="ФИО" :value="user.name" />
     </div>
     <div class="mb-5">
       <label for="email">Ваш email</label>

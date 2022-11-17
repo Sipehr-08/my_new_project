@@ -50,7 +50,6 @@
     getApplicationsRequest()
       .then(res => {
         applications.value = res.data;
-        console.log(applications.value);
       })
       .finally(() => {
         loading.value = false;

@@ -11,7 +11,11 @@ export const parseErrorsFromResponse = error => {
       responseErrors.push(errors[err][0]);
     }
   } else {
-    responseErrors.push((error.response && error.response.data.message) || '[FE] Ошибка при получении данных');
+    responseErrors.push(
+      (error.response && error.response.data.message) ||
+        error.response.data.reason ||
+        '[FE] Ошибка при получении данных'
+    );
   }
 
   return responseErrors;

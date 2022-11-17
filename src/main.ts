@@ -2,12 +2,14 @@ import { createApp } from 'vue';
 import App from '~/App.vue';
 import router from '~/router';
 import VueCookies from 'vue3-cookies';
+import Toast, { PluginOptions } from 'vue-toastification';
 import '@/assets/css/index.css';
-import NProgress from 'nprogress';
+import 'vue-toastification/dist/index.css';
 const app = createApp(App);
 
-// @ts-ignore
-app.use(NProgress);
+const options: PluginOptions = {};
+
+app.use(Toast, options);
 // app.use(Toaster);
 app.use(VueCookies);
 app.use(router);

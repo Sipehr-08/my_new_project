@@ -2,24 +2,24 @@
   import { ref } from 'vue';
   import { login } from '@/services/auth.api';
   import { useRouter } from 'vue-router';
-  import NProgress from 'nprogress';
   import IllustrationsSignIn from '~/components/illustrations/SignIn';
 
   const router = useRouter();
   const loading = ref(false);
+  const isSubmitted = ref(false);
   const user = ref({
     email: '',
     password: '',
   });
   const loginHandler = () => {
-    NProgress.start();
+    isSubmitted.value = true;
+    if (!user.value.email || !user.value.password) return;
     loading.value = true;
     login(user.value)
       .then(() => {
         router.push({ name: 'applications' });
       })
       .finally(() => {
-        NProgress.done();
         loading.value = false;
       });
   };
@@ -32,23 +32,36 @@
       </div>
       <div class="w-full md:basis-1/2 lg:basis-2/5">
         <h2 class="mb-10">Вход</h2>
-        <div class="mb-5">
+        <div class="mb-4">
           <label for="email">Введите email</label>
-          <input type="email" name="email" id="email" placeholder="Email" v-model="user.email" />
-          <small v-if="emailError">{{ emailError }}</small>
+          <input
+            :style="isSubmitted && !user.email ? 'border-color: red' : ''"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            v-model="user.email"
+          />
+          <small v-if="isSubmitted && !user.email">Поле обязательно для заполнение</small>
         </div>
-        <div class="mb-5">
+        <div class="mb-4">
           <label for="password">Введите пароль</label>
-          <input type="password" name="password" id="password" placeholder="Пароль" v-model="user.password" />
-          <small v-if="passwordError">{{ passwordError }}</small>
-        </div>
-        <div class="mb-5 text-right">
-          <RouterLink to="/reset" class="underline text-primary">Забыли пароль?</RouterLink>
+          <input
+            :style="isSubmitted && !user.password ? 'border-color: red' : ''"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Пароль"
+            v-model="user.password"
+          />
+          <small v-if="isSubmitted && !user.password">Поле обязательно для заполнение</small>
         </div>
         <button
+          :disabled="loading"
           @click="loginHandler"
-          class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:text-primary hover:bg-white"
+          class="px-10 flex justify-center items-center w-full mb-10 sm:px-16 py-1 md:py-2 text-white font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary bg-primary transition-all hover:text-primary hover:bg-white"
         >
+          <img v-show="loading" class="w-8 -my-4 -ml-10 mr-2" src="../../assets/spinner.gif" alt="" />
           Войти
         </button>
         <div class="text-center">

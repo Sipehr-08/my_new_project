@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
   ::-webkit-scrollbar {
     width: 0.34rem;
@@ -21,7 +22,6 @@
   *,
   *::before,
   *::after {
-    @apply text-dark;
     font-family: 'Source Sans Pro', sans-serif;
   }
 
