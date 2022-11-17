@@ -1,7 +1,7 @@
 // import profile from '@/router/private/profile';
 export const privateRoutes = [
   {
-    path: '/',
+    path: '/home',
     name: 'core',
     component: () => import('@/layouts/HomeLayout'),
     meta: {
@@ -10,7 +10,7 @@ export const privateRoutes = [
     redirect: { name: 'home' },
     children: [
       {
-        path: '/home',
+        path: '/',
         name: 'home',
         component: () => import('@/pages/home/HomePage'),
         meta: {

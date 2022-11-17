@@ -9,12 +9,12 @@
         <h2 class="mb-10">Новый пароль</h2>
         <div class="mb-5">
           <label for="password">Новый пароль</label>
-          <input type="password" name="password" id="password" placeholder="Пароль" v-model="passwordValue" />
+          <input type="password" name="password" id="password" placeholder="********" v-model="passwordValue" />
           <small v-if="passwordError">{{ passwordError }}</small>
         </div>
         <div class="mb-5">
           <label for="confirm">Подтвердите пароль</label>
-          <input type="password" name="confirm" id="confirm" placeholder="Пароль" v-model="confirmValue" />
+          <input type="password" name="confirm" id="confirm" placeholder="********" v-model="confirmValue" />
           <small v-if="confirmError">{{ confirmError }}</small>
         </div>
         <div class="mb-5 text-right">

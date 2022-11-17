@@ -11,7 +11,10 @@
 
 <script setup>
   import ProfileUserActions from '~/components/profile/Actions';
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
+  onMounted(() => {
+    window.scrollTo(0, 0);
+  });
   const actions = ref([
     { id: 1, name: 'Статус заявки', component: 'ProfileUserApplication', route: 'applications' },
     { id: 2, name: 'Настройки аккаунта', component: 'ProfileUserSettings', route: 'settings' },

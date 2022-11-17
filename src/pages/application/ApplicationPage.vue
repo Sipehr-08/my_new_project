@@ -1,13 +1,13 @@
 <template>
   <section>
-    <h1 class="mb-5 md:mb-10 lg:mb-0 text-center">Форма заявления на справку</h1>
+    <h1 class="mb-4 md:mb-10 lg:mb-0 text-center">Форма заявления на справку</h1>
     <div class="flex flex-col md:flex-row items-center justify-between">
       <div class="w-full md:basis-1/2 lg:basis-3/5 self-baseline">
         <IllustrationsForms />
       </div>
       <div class="w-full md:basis-1/2 lg:basis-2/5 self-stretch mt-0 lg:mt-32">
         <div class="inputs-wrapper md:h-96 md:pr-5 md:mb-10 md:overflow-y-auto">
-          <div class="mb-5">
+          <div class="mb-4">
             <label>Ваше имя</label>
             <input
               :style="isSubmitted && !userData.name ? 'border-color: red' : ''"
@@ -21,7 +21,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label>Ваша фамилия</label>
             <input
               :style="isSubmitted && !userData.surname ? 'border-color: red' : ''"
@@ -35,7 +35,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label>Ваш телефон</label>
             <input
               :style="isSubmitted && !userData.phone_number ? 'border-color: red' : ''"
@@ -49,8 +49,8 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
-            <label>Ваш email</label>
+          <div class="mb-4">
+            <label>Ваша эл.почта</label>
             <input
               :style="isSubmitted && !userData.email ? 'border-color: red' : ''"
               type="email"
@@ -63,7 +63,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label for="borndate">Дата вашего рождения</label>
             <input
               :style="isSubmitted && !userData.birth_date ? 'border-color: red' : ''"
@@ -76,7 +76,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label>Адрес вашей прописки</label>
             <input
               :style="isSubmitted && !userData.residential_address ? 'border-color: red' : ''"
@@ -104,7 +104,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label class="block mb-3" for="application">
               Прикрепите фотографию заполненной анекты по
               <a href="#" class="underline text-primary">бланку</a>
@@ -121,7 +121,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label class="block mb-3" for="selfie">
               Сделайте селфи с лицевой стороной вашего паспорта и прикрепите фотографию
             </label>
@@ -130,7 +130,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label class="block mb-3"> Прикрепите фотографию лицевой стороны вашего паспорта </label>
             <input
               v-if="!hideInput"
@@ -144,7 +144,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label class="block mb-3"> Прикрепите фотографию лицевой стороны вашего паспорта </label>
             <input v-if="!hideInput" type="file" accept="image/*" name="back" id="passport" @change="onFileChange" />
             <small class="text-red-500 block" v-if="isSubmitted && !userData.passport_back">
@@ -158,7 +158,7 @@
               Поле обязательно для заполнение
             </small>
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label for="labguage">Выберите язык текста справки</label>
             <select name="language" id="language" v-model="userData.reference_language">
               <option value="tajik">На таджикском</option>
@@ -169,7 +169,7 @@
             </small>
           </div>
 
-          <div class="mb-10 md:mb-5">
+          <div class="mb-10 md:mb-4">
             <label for="urgency"> Выберите Cрочность получения справки (по квитанции от Амонатбонка) </label>
             <select name="urgency" id="urgency" v-model="userData.reference_tariff">
               <option value="usual">Обычный - до 10 дней (20 сомон)</option>
@@ -189,11 +189,10 @@
             </label>
           </div>
         </div>
-
         <button
           @click="createApplication"
           :disabled="!agreement || loading"
-          class="px-10 w-full mb-10 sm:px-16 py-1 md:py-2 font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary text-white bg-primary transition-all hover:bg-whitedisabled:pointer-events-none disabled:opacity-50"
+          class="px-10 flex justify-center items-center w-full mb-10 sm:px-16 py-1 md:py-2 text-white font-semibold text-lg sm:text-xl border-2 rounded-xl border-primary bg-primary transition-all hover:text-primary hover:bg-white disabled:pointer-events-none disabled:opacity-50"
         >
           <img v-show="loading" class="w-8 -my-4 -ml-10 mr-2" src="../../assets/spinner.gif" alt="" />
           Отправить
@@ -206,7 +205,7 @@
   import IllustrationsForms from '@/components/illustrations/ApplicationForms';
   import { createApplicationRequest } from '@/services/app.api';
   import { useRouter } from 'vue-router';
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useToast } from 'vue-toastification';
   const toast = useToast();
   const router = useRouter();
@@ -214,6 +213,9 @@
   const loading = ref(false);
   const hideInput = ref(false);
   const isSubmitted = ref(false);
+  onMounted(() => {
+    window.scrollTo(0, 0);
+  });
   let userData = ref({
     name: '',
     surname: '',

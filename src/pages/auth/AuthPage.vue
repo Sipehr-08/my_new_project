@@ -33,7 +33,7 @@
       <div class="w-full md:basis-1/2 lg:basis-2/5">
         <h2 class="mb-10">Вход</h2>
         <div class="mb-4">
-          <label for="email">Введите email</label>
+          <label for="email">Введите эл.почту</label>
           <input
             :style="isSubmitted && !user.email ? 'border-color: red' : ''"
             type="email"
@@ -51,7 +51,7 @@
             type="password"
             name="password"
             id="password"
-            placeholder="Пароль"
+            placeholder="********"
             v-model="user.password"
           />
           <small v-if="isSubmitted && !user.password">Поле обязательно для заполнение</small>

@@ -23,7 +23,15 @@
         <tbody v-else-if="applications?.length">
           <tr v-for="application in applications" :key="application.id" class="">
             <td class="text-center">{{ application.id }}</td>
-            <td class="text-center">{{ application.date }}</td>
+            <td class="text-center">
+              {{
+                new Date(application.created_at).toLocaleDateString('ru', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })
+              }}
+            </td>
             <td class="text-center">{{ application.surname + ' ' + application.name }}</td>
             <td class="text-center">{{ application.status }}</td>
             <td class="text-center">{{ application.reference_tariff === 'urgent' ? 'Срочный' : 'Обычный' }}</td>

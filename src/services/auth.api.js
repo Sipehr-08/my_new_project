@@ -47,16 +47,16 @@ const login = params =>
 const registration = params =>
   apiClient.post(`auth/sign-up`, { ...params }).then(response => setAuth(response, params.remember_me));
 
+/**
+ * @param {Object} params - Request params
+ * @returns {Promise<*>}
+ */
+const changeUserData = params => apiClient.put(`auth/me`, { ...params });
+
 const logout = () =>
   clearCookie().finally(() => {
     delete apiClient.defaults.headers['Authorization'];
     router.push({ name: 'auth' });
   });
 
-/**
- * @param {Object} params - Request params
- * @returns {Promise<AxiosResponse<any>>}
- */
-const changePassword = params => apiClient.patch(`${END_POINT}/password`, params);
-
-export { login, logout, registration, changePassword };
+export { login, logout, registration, changeUserData };

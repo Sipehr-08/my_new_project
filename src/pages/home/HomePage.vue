@@ -3,7 +3,10 @@
   import IllustrationsLawFirm from '~/components/illustrations/LawFirm';
   import IllustrationsFillOut from '~/components/illustrations/FillOut';
   import IllustrationsProcess from '@/components/illustrations/ProcessIn';
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
+  onMounted(() => {
+    window.scrollTo(0, 0);
+  });
 
   const requirePlaces = ref([
     {
