@@ -3,8 +3,6 @@ import app from '../main';
 import { objCheckType } from '~/utils/computeFunc';
 import router from '~/router';
 
-const END_POINT = 'auth';
-
 /**
  * Set authentication setting after login
  * @param {Object} res
