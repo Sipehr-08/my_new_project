@@ -3,6 +3,9 @@
   import { registration } from '@/services/auth.api';
   import IllustrationsSignIn from '~/components/illustrations/SignIn';
   import { useToast } from 'vue-toastification';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   const toast = useToast();
 
@@ -28,6 +31,7 @@
     loading.value = true;
     registration(user.value)
       .then(() => {
+        router.push({ name: 'applications' });
         toast.success('Вы успешно зарегистрировались', {
           timeout: 3000,
         });

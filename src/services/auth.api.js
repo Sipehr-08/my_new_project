@@ -43,7 +43,9 @@ const login = params =>
  * @returns {Promise<*>}
  */
 const registration = params =>
-  apiClient.post(`auth/sign-up`, { ...params }).then(response => setAuth(response, params.remember_me));
+  apiClient
+    .post(`auth/sign-up`, { remember_me: true, ...params })
+    .then(response => setAuth(response, params.remember_me));
 
 /**
  * @param {Object} params - Request params
