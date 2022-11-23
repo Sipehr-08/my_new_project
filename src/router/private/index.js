@@ -1,7 +1,7 @@
 // import profile from '@/router/private/profile';
 export const privateRoutes = [
   {
-    path: '/home',
+    path: '/',
     name: 'core',
     component: () => import('@/layouts/HomeLayout'),
     meta: {

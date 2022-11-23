@@ -6,13 +6,13 @@
           <tr class="">
             <th class="text-center">№</th>
             <th class="text-center">Дата</th>
-            <th class="text-center">На имя</th>
+            <th class="text-center">ФИО</th>
             <th class="text-center">Статус</th>
             <th class="text-center">Срочность</th>
           </tr>
         </thead>
         <tbody v-if="loading" class="basis-1/2">
-          <tr v-for="i in 4" :key="i" class="text-center">
+          <tr v-for="i in 10" :key="i" class="text-center">
             <td><div class="w-100 h-6 animate-pulse bg-gray opacity-5 px-4"></div></td>
             <td><div class="w-100 h-6 animate-pulse bg-gray opacity-5 px-4"></div></td>
             <td><div class="w-100 h-6 animate-pulse bg-gray opacity-5 px-4"></div></td>
@@ -32,8 +32,19 @@
                 })
               }}
             </td>
-            <td class="text-center">{{ application.surname + ' ' + application.name }}</td>
-            <td class="text-center">{{ application.status }}</td>
+            <td class="text-center">{{ application.full_name }}</td>
+            <td class="text-center">
+              <span
+                :class="{
+                  'bg-yellow': application?.status_type === 'on_consideration',
+                  'bg-green': application?.status_type === 'ready',
+                  'bg-red-400': application?.status_type === 'canceled',
+                }"
+                class="rounded-xl px-2 py-0.5 text-white text-sm"
+              >
+                {{ application.status }}
+              </span>
+            </td>
             <td class="text-center">{{ application.reference_tariff === 'urgent' ? 'Срочный' : 'Обычный' }}</td>
           </tr>
         </tbody>
@@ -48,10 +59,13 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { getApplicationsRequest } from '@/services/app.api';
   const applications = ref(null);
   const loading = ref(false);
+  onMounted(() => {
+    window.scrollBy(0, 0);
+  });
 
   const getApplication = () => {
     loading.value = true;

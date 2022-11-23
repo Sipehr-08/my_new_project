@@ -59,7 +59,7 @@
           </button>
         </router-link>
       </div>
-      <div class="w-full basis-1/2 mb-5 md:mb-0">
+      <div class="w-full basis-1/2 mb-5 md:mb-0 lg:-mt-20">
         <IllustrationsLawFirm />
       </div>
     </section>

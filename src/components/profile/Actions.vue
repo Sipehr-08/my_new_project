@@ -17,9 +17,11 @@
 </template>
 
 <script setup>
-  import { defineProps } from 'vue';
+  import { defineProps, onMounted } from 'vue';
   import { logout } from '@/services/auth.api';
-
+  onMounted(() => {
+    window.scrollTo(0, 0);
+  });
   const props = defineProps({
     actions: {
       type: Array,

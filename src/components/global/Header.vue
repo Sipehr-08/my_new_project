@@ -1,16 +1,23 @@
 <template>
-  <header class="app-container p-4 lg:p-6 mx-auto mb-10 md:mb-16 lg:mb-20 sticky top-0 left-0 right-0 bg-white">
+  <header class="py-4 px-4 md:px-16 mx-auto mb-10 md:mb-16 lg:mb-20 sticky top-0 left-0 right-0 bg-white shadow">
     <nav class="flex items-center justify-between">
-      <router-link to="/" class="font-bold text-2xl md:text-3xl text-primary">
-        Судимости<span class="text-dark">.нет</span>
+      <router-link to="/" class="font-bold text-2xl md:text-3xl">
+        <span class="text-primary">Судимости</span><span class="text-dark">.нет</span>
       </router-link>
       <ul class="hidden md:flex md:mt-2">
         <li v-for="navLink in navLinks" :key="navLink.id" class="mr-5 lg:mr-10 last:mr-0">
           <router-link
-            :to="navLink.route"
+            :to="{ name: navLink.name }"
             class="border-b-2 border-b-transparent text-lg md:text-xl transition-all hover:border-b-primary"
           >
-            {{ navLink.text }}
+            <span
+              :class="{
+                'text-primary':
+                  navLink.name === routeName || (navLink.name === 'applications' && routeName === 'settings'),
+              }"
+            >
+              {{ navLink.text }}
+            </span>
           </router-link>
         </li>
       </ul>
@@ -38,7 +45,7 @@
       >
         <ul class="flex flex-col items-center">
           <li v-for="navLink in navLinks" :key="navLink.id" class="mb-3 last:mb-0">
-            <router-link :to="navLink.route" @click="isMenuVisible = !isMenuVisible" class="text-2xl">
+            <router-link :to="{ name: navLink.name }" @click="isMenuVisible = !isMenuVisible" class="text-2xl">
               {{ navLink.text }}
             </router-link>
           </li>
@@ -50,14 +57,20 @@
 
 <script setup>
   import { MenuIcon, XIcon } from '@heroicons/vue/solid';
-  import { ref } from 'vue';
-
+  import { ref, watch } from 'vue';
+  import { useRoute } from 'vue-router';
+  const route = useRoute();
   const isMenuVisible = ref(false);
+  const routeName = ref(route.name);
+  watch(route, () => {
+    routeName.value = route.name;
+    console.log(routeName.value);
+  });
 
   const navLinks = ref([
-    { id: Date.now(), text: 'О справке', route: '/home' },
-    { id: Date.now(), text: 'Оставить заявку', route: '/application' },
-    { id: Date.now(), text: 'Профиль', route: '/profile' },
+    { id: Date.now(), text: 'О справке', name: 'home' },
+    { id: Date.now(), text: 'Оставить заявку', name: 'application' },
+    { id: Date.now(), text: 'Профиль', name: 'applications' },
   ]);
 </script>
 <style lang="postcss" scoped>

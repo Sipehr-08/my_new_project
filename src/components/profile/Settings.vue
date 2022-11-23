@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useToast } from 'vue-toastification';
 
   const toast = useToast();
@@ -92,6 +92,10 @@
     email: '',
     old_password: '',
     password: '',
+  });
+
+  onMounted(() => {
+    window.scrollTo(0, 0);
   });
 
   const changeData = () => {
