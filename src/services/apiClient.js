@@ -3,7 +3,6 @@ import { throttleAdapterEnhancer } from 'axios-extensions';
 import router from '~/router';
 import { parseErrorsFromResponse } from '~/utils/parsers';
 import { objCheckType } from '~/utils/computeFunc';
-import app from '~/main';
 import { useCookies } from 'vue3-cookies';
 import { useToast } from 'vue-toastification';
 const toast = useToast();
@@ -59,11 +58,11 @@ const authInterceptor = config => {
 
 const errorStatus = {
   400: function () {
-    app.config.globalProperties?.$toast.warning('Данные не найдены');
+    toast.error('Данные не найдены');
   },
   401: function () {
     cookies.remove('auth');
-    app.config.globalProperties?.$toast.warning('Время авторизации закончилось');
+    toast.error('Время авторизации закончилось');
     router.push('/auth');
   },
   // 404: function () {

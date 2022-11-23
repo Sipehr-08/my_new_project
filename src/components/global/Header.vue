@@ -29,9 +29,9 @@
 
       <div
         :class="[
-          'absolute left-0 right-0 h-96 rounded-md flex items-center justify-center bg-white transition-all mobile-menu',
+          'absolute left-0 right-0 h-64 rounded-md flex items-center justify-center bg-white transition-all mobile-menu',
           { 'opacity-100': isMenuVisible },
-          { 'top-10': isMenuVisible },
+          { 'top-20': isMenuVisible },
           { 'z-50': isMenuVisible },
           { visible: isMenuVisible },
           { 'pointer-events-auto': !isMenuVisible },
@@ -46,7 +46,14 @@
         <ul class="flex flex-col items-center">
           <li v-for="navLink in navLinks" :key="navLink.id" class="mb-3 last:mb-0">
             <router-link :to="{ name: navLink.name }" @click="isMenuVisible = !isMenuVisible" class="text-2xl">
-              {{ navLink.text }}
+              <span
+                :class="{
+                  'text-primary':
+                    navLink.name === routeName || (navLink.name === 'applications' && routeName === 'settings'),
+                }"
+              >
+                {{ navLink.text }}
+              </span>
             </router-link>
           </li>
         </ul>
